@@ -1,0 +1,82 @@
+version: "3.1"
+
+nlu:
+# General Greetings and Conversational
+- intent: greet
+  examples: |
+    - hi
+    - hello
+    - hey
+    - good morning
+    - good evening
+    - hi there
+    - hey bot
+    - hello chatbot
+    - namaste
+    - greetings
+    - hii
+    - hiii
+    - hey hi
+    - hi hello
+    - helo
+    - hiii there
+    - heyyy
+    - hiiii
+    - yo
+    - sup
+    - what's up
+    - howdy
+    - hiya
+
+- intent: goodbye
+  examples: |
+    - bye
+    - goodbye
+    - see you later
+    - take care
+    - talk to you later
+    - bye bye
+    - catch you later
+    - have a good day
+
+- intent: thank_you
+  examples: |
+    - thanks
+    - thank you
+    - thank you so much
+    - thanks a lot
+    - appreciate it
+    - thanks for the help
+    - grateful
+
+- intent: affirm
+  examples: |
+    - yes
+    - yeah
+    - correct
+    - right
+    - exactly
+    - sure
+    - ok
+    - okay
+    - fine
+
+- intent: deny
+  examples: |
+    - no
+    - nope
+    - not really
+    - no thanks
+    - I don't think so
+    - not at all
+
+- intent: ask_college_info
+  examples: |
+    - Tell me about CBIT
+    - What is CBIT?
+    - Information about the college
+    - CBIT details
+    - About CBIT Hyderabad
+    - College information
+    - What does CBIT stand for?
+    - Full form of CBIT

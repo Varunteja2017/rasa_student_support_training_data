@@ -1,0 +1,206 @@
+version: "3.1"
+
+rules:
+- rule: Greet user and show menu
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - action: action_show_main_menu
+
+- rule: Say goodbye
+  steps:
+  - intent: goodbye
+  - action: utter_goodbye
+
+- rule: Back to main menu
+  steps:
+  - intent: back_to_menu
+  - action: action_show_main_menu
+
+- rule: Show admissions submenu
+  steps:
+  - intent: select_admissions
+  - action: action_show_admissions_menu
+
+- rule: Show fees submenu
+  steps:
+  - intent: select_fees
+  - action: action_show_fees_menu
+
+- rule: Show documents submenu
+  steps:
+  - intent: select_documents
+  - action: action_show_documents_menu
+
+- rule: Show exams submenu
+  steps:
+  - intent: select_exams
+  - action: action_show_exams_menu
+
+- rule: Show technical submenu
+  steps:
+  - intent: select_technical
+  - action: action_show_technical_menu
+
+- rule: Show contact submenu
+  steps:
+  - intent: select_contact
+  - action: action_show_contact_menu
+
+- rule: Handle custom question
+  steps:
+  - intent: ask_custom_question
+  - action: action_ask_custom_question
+
+- rule: Handle admission queries with LLM and show return option
+  steps:
+  - or:
+    - intent: ask_admission_procedure
+    - intent: ask_admission_eligibility
+    - intent: ask_admission_dates
+    - intent: ask_entrance_exam
+  - action: action_llm_response
+  - action: action_return_to_menu
+
+- rule: Handle fee queries with LLM and show return option
+  steps:
+  - or:
+    - intent: ask_fee_structure
+    - intent: ask_fee_payment
+    - intent: ask_fee_payment_method
+    - intent: ask_fee_receipt
+    - intent: ask_fee_refund
+    - intent: ask_installment_payment
+    - intent: ask_scholarship_fee
+    - intent: ask_fee_paid_not_updated
+    - intent: ask_payment_failed_money_deducted
+    - intent: fee_payment_failure
+    - intent: fee_receipt_issue
+  - action: action_llm_response
+  - action: action_return_to_menu
+
+- rule: Handle document queries with LLM and show return option
+  steps:
+  - or:
+    - intent: ask_bonafide_certificate
+    - intent: ask_transfer_certificate
+    - intent: ask_marks_memo
+    - intent: ask_provisional_certificate
+  - action: action_llm_response
+  - action: action_return_to_menu
+
+- rule: Handle examination queries with LLM and show return option
+  steps:
+  - or:
+    - intent: ask_exam_schedule
+    - intent: ask_hall_ticket
+    - intent: ask_hall_ticket_not_generated
+    - intent: ask_results
+    - intent: ask_revaluation
+    - intent: ask_supplementary_exam
+    - intent: exam_registration
+  - action: action_llm_response
+  - action: action_return_to_menu
+
+- rule: Handle contact queries with LLM and show return option
+  steps:
+  - or:
+    - intent: ask_contact_info
+    - intent: ask_office_hours
+  - action: action_llm_response
+  - action: action_return_to_menu
+
+- rule: Handle technical issues with LLM and show return option
+  steps:
+  - or:
+    - intent: technical_issue_erp
+    - intent: technical_issue_email
+    - intent: technical_issue_lms
+  - action: action_llm_response
+  - action: action_return_to_menu
+
+- rule: Handle grievances with LLM and show return option
+  steps:
+  - or:
+    - intent: file_grievance
+    - intent: ask_anti_ragging
+  - action: action_llm_response
+  - action: action_return_to_menu
+
+- rule: Handle college info with LLM and show return option
+  steps:
+  - intent: ask_college_info
+  - action: action_llm_response
+  - action: action_return_to_menu
+
+- rule: Show tickets submenu
+  steps:
+  - intent: select_tickets
+  - action: action_show_tickets_menu
+
+- rule: Handle ticket queries with ticket action
+  steps:
+  - or:
+    - intent: ask_my_tickets
+    - intent: ask_ticket_history
+  - action: action_check_tickets
+  - action: action_return_to_menu
+
+- rule: Handle ticket status info with LLM
+  steps:
+  - intent: ask_ticket_status
+  - action: action_llm_response
+  - action: action_return_to_menu
+
+- rule: Handle ticket creation with LLM
+  steps:
+  - intent: ask_create_ticket
+  - action: action_llm_response
+  - action: action_return_to_menu
+
+- rule: Handle ticket search by ID
+  steps:
+  - intent: ask_ticket_by_id
+  - action: action_search_ticket_by_id
+
+- rule: Handle general ticket search
+  steps:
+  - intent: ask_search_ticket
+  - action: action_search_ticket
+
+- rule: Handle return to menu
+  steps:
+  - intent: return_to_menu
+  - action: action_show_main_menu
+
+- rule: Handle hostel queries with LLM and show return option
+  steps:
+  - or:
+    - intent: hostel_fee
+    - intent: hostel_admission
+    - intent: hostel_rules
+    - intent: hostel_room_allotment
+    - intent: hostel_mess
+    - intent: hostel_complaint
+  - action: action_llm_response
+  - action: action_return_to_menu
+
+- rule: Handle FAQ helpful feedback
+  steps:
+  - intent: faq_helpful
+  - action: action_faq_helpful
+
+- rule: Handle FAQ not helpful feedback
+  steps:
+  - intent: faq_not_helpful
+  - action: action_create_ticket_fallback
+
+- rule: Handle out of scope with ticket creation
+  steps:
+  - intent: out_of_scope
+  - action: action_create_ticket_fallback
+
+- rule: Fallback to ticket creation for unknown queries
+  steps:
+  - intent: nlu_fallback
+  - action: action_create_ticket_fallback

@@ -1,0 +1,142 @@
+version: "3.1"
+
+nlu:
+# Document Issuance and Certificate Related
+- intent: ask_bonafide_certificate
+  examples: |
+    - How to get bonafide certificate?
+    - I need bonafide
+    - Bonafide certificate process
+    - Where to apply for bonafide?
+    - Bonafide application
+    - Student bonafide
+    - Issue bonafide certificate
+    - Bonafide for scholarship
+    - Bonafide for bank loan
+    - How to apply bonafide
+    - Bonafide validity period
+    - Bonafide cost
+    - Can I get bonafide online
+    - Multiple bonafide copies
+    - Bonafide turnaround time
+
+- intent: ask_transfer_certificate
+  examples: |
+    - How to get TC?
+    - Transfer certificate
+    - TC issuance
+    - I need transfer certificate
+    - How to apply for TC?
+    - TC application process
+    - TC for higher education
+    - TC validity
+    - TC cost charges
+    - Can I download TC online
+    - TC after graduation
+    - TC requirements
+    - How long for TC
+    - TC copy count
+    - Duplicate TC available
+
+- intent: ask_course_completion_certificate
+  examples: |
+    - Course completion certificate
+    - Provisional certificate
+    - Degree certificate
+    - When will I get my degree?
+    - How to get course certificate?
+    - Completion certificate
+    - documents need for graduation
+    - documents for job application
+    - certificate documents process
+    - what documents needed
+
+- intent: ask_marks_memo
+  examples: |
+    - How to get marks memo?
+    - Marks card
+    - Grade sheet
+    - Consolidated marks memo
+    - Provisional marks memo
+    - Semester marks
+    - Marks memo process
+    - How to apply marks memo
+    - Marks memo cost
+    - How many days for memo
+    - Can I get digital memo
+    - Marks memo format
+    - Marks memo validity
+    - Multiple memo copies
+    - Semester wise marks memo
+
+- intent: ask_character_certificate
+  examples: |
+    - Character certificate
+    - Conduct certificate
+    - How to get character certificate?
+    - Good conduct certificate
+    - Character certificate for admission
+    - Conduct certificate from college
+    - How to apply character cert
+    - Character certificate process
+    - Time for character certificate
+    - Cost of character certificate
+    - Online character certificate
+    - Character reference needed
+    - Character certificate validity
+    - Multiple character copies
+    - Character certificate template
+
+- intent: ask_migration_certificate
+  examples: |
+    - Migration certificate
+    - How to get migration?
+    - University migration certificate
+    - Migration process
+    - Migration certificate for higher ed
+    - How to apply migration
+    - Migration fee details
+    - Time to get migration
+    - Migration online available
+    - Migration certificate list
+    - Multiple migration copies
+    - When can I apply migration
+    - After graduation migration
+    - Migration eligibility
+    - Migration certificate validity
+
+- intent: ask_duplicate_documents
+  examples: |
+    - Lost my certificate
+    - Duplicate certificate
+    - How to get duplicate degree?
+    - Duplicate marks memo
+    - Certificate lost
+    - Reissue of documents
+    - Duplicate bonafide
+    - Duplicate TC
+    - How to get duplicate copy
+    - Duplicate certificate process
+    - Cost for duplicate document
+    - Time to get duplicate
+    - Multiple duplicates allowed
+    - Affidavit requirement duplicate
+    - Can print myself
+
+- intent: ask_document_verification
+  examples: |
+    - Document verification process
+    - How to verify my documents?
+    - Authentication of certificates
+    - Certificate attestation
+    - Where to verify documents?
+    - Document verification eligibility
+    - Verification from registrar
+    - Certificate attestation by principal
+    - How long verification takes
+    - Verification cost
+    - Online verification possible
+    - What documents verify
+    - Verification for foreign admission
+    - Verification copy needed
+    - Verification validity internationally

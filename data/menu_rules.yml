@@ -1,0 +1,57 @@
+version: "3.1"
+
+rules:
+  - rule: menu root mapping
+    steps:
+      - intent: choose_menu_root
+      - action: utter_menu_root
+
+  - rule: map admissions button to submenu
+    steps:
+      - intent: choose_admissions
+      - action: utter_admissions_menu
+
+  - rule: map fees button to submenu
+    steps:
+      - intent: choose_fees
+      - action: utter_fees_menu
+
+  - rule: map exams button to submenu
+    steps:
+      - intent: choose_exams
+      - action: utter_exams_menu
+
+  - rule: map memos button to submenu
+    steps:
+      - intent: choose_memos
+      - action: utter_memos_menu
+
+  - rule: map services button to submenu
+    steps:
+      - intent: choose_services
+      - action: utter_services_menu
+
+  - rule: map counters button to submenu
+    steps:
+      - intent: choose_counters
+      - action: utter_counters_menu
+
+  - rule: map placements button to submenu
+    steps:
+      - intent: choose_placements
+      - action: utter_placements_menu
+
+  - rule: map tickets button to submenu
+    steps:
+      - intent: choose_tickets
+      - action: utter_tickets_menu
+
+  - rule: map campus info to submenu
+    steps:
+      - intent: choose_campus_info
+      - action: utter_campus_menu
+
+  - rule: route free-text ask_other to LLM action
+    steps:
+      - intent: ask_other
+      - action: action_llm_response

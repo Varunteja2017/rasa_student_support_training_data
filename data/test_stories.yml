@@ -1,0 +1,205 @@
+# version: "3.1"
+
+# stories:
+
+# - story: fees flow test
+#   steps:
+#   - intent: greet
+#   - action: utter_greet
+#   - action: action_show_main_menu
+#   - intent: select_fees
+#   - action: action_show_fees_menu
+#   - intent: ask_fee_structure
+#   - action: action_llm_response
+#   - action: action_return_to_menu
+
+# - story: documents flow test
+#   steps:
+#   - intent: greet
+#   - action: utter_greet
+#   - action: action_show_main_menu
+#   - intent: select_documents
+#   - action: action_show_documents_menu
+#   - intent: ask_bonafide_certificate
+#   - action: action_llm_response
+#   - action: action_return_to_menu
+
+# - story: technical flow test
+#   steps:
+#   - intent: greet
+#   - action: utter_greet
+#   - action: action_show_main_menu
+#   - intent: select_technical
+#   - action: action_show_technical_menu
+#   - intent: technical_issue_erp
+#   - action: action_llm_response
+#   - action: action_return_to_menu
+
+# - story: exit test
+#   steps:
+#   - intent: greet
+#   - action: utter_greet
+#   - action: action_show_main_menu
+#   - intent: goodbye
+#   - action: utter_goodbye
+version: "3.1"
+
+stories:
+
+# ── DOMAIN FLOW TESTS (existing 4, kept as-is) ──────────────────
+
+- story: fees flow test
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - action: action_show_main_menu
+  - intent: select_fees
+  - action: action_show_fees_menu
+  - intent: ask_fee_structure
+  - action: action_llm_response
+  - action: action_return_to_menu
+
+- story: documents flow test
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - action: action_show_main_menu
+  - intent: select_documents
+  - action: action_show_documents_menu
+  - intent: ask_bonafide_certificate
+  - action: action_llm_response
+  - action: action_return_to_menu
+
+- story: technical flow test
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - action: action_show_main_menu
+  - intent: select_technical
+  - action: action_show_technical_menu
+  - intent: technical_issue_erp
+  - action: action_llm_response
+  - action: action_return_to_menu
+
+- story: exit test
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - action: action_show_main_menu
+  - intent: goodbye
+  - action: utter_goodbye
+
+# ── ADDITIONAL DOMAIN FLOW TESTS (new) ──────────────────────────
+
+- story: admissions flow test
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - action: action_show_main_menu
+  - intent: select_admissions
+  - action: action_show_admissions_menu
+  - intent: ask_admission_procedure
+  - action: action_llm_response
+  - action: action_return_to_menu
+
+- story: exams flow test
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - action: action_show_main_menu
+  - intent: select_exams
+  - action: action_show_exams_menu
+  - intent: ask_exam_schedule
+  - action: action_llm_response
+  - action: action_return_to_menu
+
+- story: contact flow test
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - action: action_show_main_menu
+  - intent: select_contact
+  - action: action_show_contact_menu
+  - intent: ask_principal_contact
+  - action: action_llm_response
+  - action: action_return_to_menu
+
+# ── BACK-TO-MENU NAVIGATION TESTS ───────────────────────────────
+
+- story: back to menu after fees
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - action: action_show_main_menu
+  - intent: select_fees
+  - action: action_show_fees_menu
+  - intent: back_to_menu
+  - action: action_show_main_menu
+
+- story: back to menu after documents
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - action: action_show_main_menu
+  - intent: select_documents
+  - action: action_show_documents_menu
+  - intent: back_to_menu
+  - action: action_show_main_menu
+
+- story: back to menu then exit
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - action: action_show_main_menu
+  - intent: select_technical
+  - action: action_show_technical_menu
+  - intent: back_to_menu
+  - action: action_show_main_menu
+  - intent: goodbye
+  - action: utter_goodbye
+
+# ── MULTI-QUERY SESSION TESTS ────────────────────────────────────
+
+- story: fees then technical multi-domain session
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - action: action_show_main_menu
+  - intent: select_fees
+  - action: action_show_fees_menu
+  - intent: ask_fee_structure
+  - action: action_llm_response
+  - action: action_return_to_menu
+  - intent: select_technical
+  - action: action_show_technical_menu
+  - intent: technical_issue_erp
+  - action: action_llm_response
+  - action: action_return_to_menu
+  - intent: goodbye
+  - action: utter_goodbye
+
+- story: admissions then documents multi-domain session
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - action: action_show_main_menu
+  - intent: select_admissions
+  - action: action_show_admissions_menu
+  - intent: ask_admission_procedure
+  - action: action_llm_response
+  - action: action_return_to_menu
+  - intent: select_documents
+  - action: action_show_documents_menu
+  - intent: ask_bonafide_certificate
+  - action: action_llm_response
+  - action: action_return_to_menu
+
+# ── CUSTOM QUESTION FLOW TEST ────────────────────────────────────
+
+- story: custom question flow
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - action: action_show_main_menu
+  - intent: ask_custom_question
+  - action: action_ask_custom_question

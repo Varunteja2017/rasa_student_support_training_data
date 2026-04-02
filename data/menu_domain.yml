@@ -1,0 +1,251 @@
+version: "3.1"
+
+intents:
+  - select_admissions
+  - select_fees
+  - select_documents
+  - select_exams
+  - select_technical
+  - select_tickets
+  - select_contact
+  - back_to_menu
+  - ask_custom_question
+  - ask_other
+
+responses:
+  utter_menu_root:
+  - text: "👋 Welcome to CBIT Student Support!\n\nWhat can I help you with today? Select a category or type your own question:"
+    buttons:
+      - title: "📚 Admissions & Enrollment"
+        payload: "/select_admissions"
+      - title: "💰 Fee Payment"
+        payload: "/select_fees"
+      - title: "📄 Certificates & Documents"
+        payload: "/select_documents"
+      - title: "📝 Examinations"
+        payload: "/select_exams"
+      - title: "💻 Technical Issues"
+        payload: "/select_technical"
+      - title: "🎫 Support Tickets"
+        payload: "/select_tickets"
+      - title: "📞 Contact Information"
+        payload: "/select_contact"
+      - title: "✍️ Type Your Own Question"
+        payload: "/ask_custom_question"
+
+  # Admissions submenu (under select_admissions)
+  utter_select_admissions:
+  - text: "🎓 Admissions Menu\n\nSelect a topic:"
+    buttons:
+      - title: "Admission Procedure"
+        payload: "/ask_admission_procedure"
+      - title: "Eligibility Criteria"
+        payload: "/ask_admission_eligibility"
+      - title: "Entrance Exams"
+        payload: "/ask_entrance_exam"
+      - title: "Admission Dates"
+        payload: "/ask_admission_dates"
+      - title: "Back to main menu"
+        payload: "/select_menu_root"
+
+  # Fees submenu (under select_fees)
+  utter_select_fees:
+  - text: "💰 Fees Menu\n\nSelect a topic:"
+    buttons:
+      - title: "Fee Structure"
+        payload: "/ask_fee_structure"
+      - title: "Fee Payment Method"
+        payload: "/ask_fee_payment_method"
+      - title: "Payment Deadline"
+        payload: "/ask_fee_payment_deadline"
+      - title: "Fee Receipt"
+        payload: "/ask_fee_receipt"
+      - title: "Back to main menu"
+        payload: "/select_menu_root"
+
+  # Exams submenu (under select_exams)
+  utter_select_exams:
+  - text: "📝 Exams Menu\n\nSelect a topic:"
+    buttons:
+      - title: "Exam Schedule"
+        payload: "/ask_exam_schedule"
+      - title: "Hall Ticket"
+        payload: "/ask_hall_ticket"
+      - title: "Results"
+        payload: "/ask_results"
+      - title: "Revaluation"
+        payload: "/ask_revaluation"
+      - title: "Back to main menu"
+        payload: "/select_menu_root"
+
+  # Documents submenu (under select_documents)
+  utter_select_documents:
+  - text: "📄 Documents Menu\n\nSelect a topic:"
+    buttons:
+      - title: "Bonafide Certificate"
+        payload: "/ask_bonafide_certificate"
+      - title: "Transfer Certificate"
+        payload: "/ask_transfer_certificate"
+      - title: "Marks Memo"
+        payload: "/ask_marks_memo"
+      - title: "Provisional Certificate"
+        payload: "/ask_provisional_certificate"
+      - title: "Back to main menu"
+        payload: "/select_menu_root"
+
+  # Technical Issues submenu (under select_technical)
+  utter_select_technical:
+  - text: "💻 Technical Issues Menu\n\nSelect a topic:"
+    buttons:
+      - title: "ERP Issues"
+        payload: "/technical_issue_erp"
+      - title: "Email Issues"
+        payload: "/technical_issue_email"
+      - title: "Back to main menu"
+        payload: "/select_menu_root"
+
+  # Contact submenu (under select_contact)
+  utter_select_contact:
+  - text: "📞 Contact Information:"
+    buttons:
+      - title: "Contact Info"
+        payload: "/ask_contact_info"
+      - title: "Office Hours"
+        payload: "/ask_office_hours"
+      - title: "Back to main menu"
+        payload: "/select_menu_root"
+
+  # OLD: Admissions submenu
+  utter_admissions_menu:
+  - text: "Admissions & Academic - pick a topic:"
+    buttons:
+      - title: "Admission Documents"
+        payload: "/ask_admission_procedure"
+      - title: "Admission Confirmation"
+        payload: "/ask_admission_eligibility"
+      - title: "Lateral Entry"
+        payload: "/ask_entrance_exam"
+      - title: "Back to main menu"
+        payload: "/select_menu_root"
+
+  # OLD: Fees submenu
+  utter_fees_menu:
+  - text: "Fees & Payments - pick a topic:"
+    buttons:
+      - title: "How to pay fees"
+        payload: "/ask_fee_payment_method"
+      - title: "EPAS payment steps"
+        payload: "/ask_fee_structure"
+      - title: "Payment not updated"
+        payload: "/ask_fee_paid_not_updated"
+      - title: "Back to main menu"
+        payload: "/select_menu_root"
+
+  # Exams submenu
+  utter_exams_menu:
+  - text: "Exams & Hall Tickets - pick a topic:"
+    buttons:
+      - title: "Exam Timetable"
+        payload: "/ask_semester_exam_timetable"
+      - title: "Hall Ticket Issues"
+        payload: "/ask_hall_ticket_not_generated"
+      - title: "What to carry"
+        payload: "/ask_what_to_carry_for_exams"
+      - title: "Back to main menu"
+        payload: "/select_menu_root"
+
+  # Memos submenu
+  utter_memos_menu:
+  - text: "Memos & Academic Records - pick a topic:"
+    buttons:
+      - title: "When memos are released"
+        payload: "/ask_when_memo_released"
+      - title: "Memo correction"
+        payload: "/ask_memo_correction"
+      - title: "Duplicate memo"
+        payload: "/ask_lost_memo_duplicate"
+      - title: "Back to main menu"
+        payload: "/select_menu_root"
+
+  # Services submenu
+  utter_services_menu:
+  - text: "Student Services - pick a topic:"
+    buttons:
+      - title: "Bonafide certificate"
+        payload: "/ask_bonafide_certificate"
+      - title: "Hostel application"
+        payload: "/ask_hostel_application"
+      - title: "Library access"
+        payload: "/ask_library_access"
+      - title: "Back to main menu"
+        payload: "/select_menu_root"
+
+  # Counters submenu
+  utter_counters_menu:
+  - text: "Administration Counters - pick a topic:"
+    buttons:
+      - title: "Counter services"
+        payload: "/ask_counter1_services"
+      - title: "Counter timings"
+        payload: "/ask_counter_timings"
+      - title: "Token system"
+        payload: "/ask_token_system"
+      - title: "Back to main menu"
+        payload: "/select_menu_root"
+
+  # Placements submenu
+  utter_placements_menu:
+  - text: "Placements & Internships - pick a topic:"
+    buttons:
+      - title: "Placement registration"
+        payload: "/ask_placement_registration"
+      - title: "Placement contact"
+        payload: "/ask_contact_placement_cell"
+      - title: "Back to main menu"
+        payload: "/select_menu_root"
+
+  # Tickets submenu (under select_tickets)
+  utter_select_tickets:
+  - text: "🎫 Support Tickets\n\nTo raise a new ticket, please open the Tickets section in the app. You can create detailed tickets there and track their status."
+    buttons:
+      - title: "Open Tickets"
+        payload: "/open_tickets_ui"
+      - title: "Track Ticket Status"
+        payload: "/track_ticket_status"
+      - title: "Show My Tickets"
+        payload: "/ask_my_tickets"
+      - title: "Back to main menu"
+        payload: "/select_menu_root"
+
+  # Tickets submenu (legacy name)
+  utter_tickets_menu:
+  - text: "🎫 Ticket Support - To raise a new ticket, please open the Tickets section in the app. You can create detailed tickets there and track their status."
+    buttons:
+      - title: "Raise Academic Ticket"
+        payload: "/open_tickets_ui"
+      - title: "Raise Payment Ticket"
+        payload: "/open_tickets_ui"
+      - title: "Track Ticket Status"
+        payload: "/track_ticket_status"
+      - title: "Back to main menu"
+        payload: "/select_menu_root"
+
+  # Campus info submenu
+  utter_campus_menu:
+  - text: "Campus Info - pick a topic:"
+    buttons:
+      - title: "Working hours"
+        payload: "/ask_college_working_hours"
+      - title: "Cafeteria timings"
+        payload: "/ask_cafeteria_timings"
+      - title: "Emergency contacts"
+        payload: "/ask_emergency_contacts"
+      - title: "Back to main menu"
+        payload: "/select_menu_root"
+
+  # Fallback for ask_other: route to free-text handling
+  utter_ask_other:
+  - text: "Please type your question and I'll try to help, or choose from the menu."
+
+  # Map core answers to existing utter_* names (these should exist in main domain)
+  # If the main domain has these utterances, Rasa will use them. Otherwise these are placeholders.

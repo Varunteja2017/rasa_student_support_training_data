@@ -1,0 +1,132 @@
+version: "3.1"
+
+nlu:
+# ============================================================
+# MENU SELECTION - Single Intent with Entity Extraction
+# ============================================================
+# Consolidated from: select_admissions, select_fees, 
+# select_documents, select_exams, select_technical, select_contact
+#
+# Instead of 6 confusing intents, use ONE with entity:menu
+# ============================================================
+
+  - intent: menu_selection
+    examples: |
+      - [admissions](menu)
+      - [fees](menu)
+      - [documents](menu)
+      - [exams](menu)
+      - [technical](menu)
+      - [contact](menu)
+      - 1
+      - 2
+      - 3
+      - 4
+      - 5
+      - 7
+      - /admissions
+      - /fees
+      - /documents
+      - /exams
+      - /technical
+      - /contact
+      - show me [admissions](menu) info
+      - tell me about [fees](menu)
+      - I want to know about [documents](menu)
+      - [exams](menu) related queries
+      - help with [exams](menu)
+      - [technical](menu) support needed
+      - show [contact](menu) info
+      - tell me [contact](menu) details
+      - I want [contact](menu) information
+      - how do I access [admissions](menu)
+      - help with [fees](menu) information
+      - more about [documents](menu)
+      - [exams](menu) menu
+      - I need [technical](menu) help
+      - can I get [contact](menu) details
+      - tell me [admissions](menu) process
+      - what are [fees](menu) options
+      - [documents](menu) help needed
+      - [exams](menu) guidance
+      - I have [technical](menu) problems
+      - show [admissions](menu) details
+      - I'm interested in [admissions](menu)
+      - [fees](menu) payment guidance
+      - [documents](menu) guidance
+      - go to [admissions](menu)
+      - open [exams](menu) section
+      - navigate to [fees](menu)
+      - click [documents](menu)
+      - [contact](menu) menu
+      - select [technical](menu)
+      - access [admissions](menu) section
+      - view [fees](menu) details
+      - check [documents](menu) options
+      - explore [exams](menu)
+      - I need [technical](menu) assistance
+      - show [contact](menu) options
+      - go to [admissions](menu) section
+      - take me to [fees](menu)
+      - move to [documents](menu)
+      - switch to [exams](menu) section
+
+  - intent: back_to_menu
+    examples: |
+      - /back_to_menu
+      - back
+      - main menu
+      - go back
+      - return
+      - take me back
+      - show main menu again
+      - return to main menu
+      - go to menu
+      - back to main
+      - menu
+      - home
+      - start over
+      - go to start
+      - restart
+      - back to start
+      - previous menu
+      - go back to menu
+      - return to beginning
+      - show menu
+      - main menu please
+      - back to home
+      - exit this menu
+      - back to categories
+      - show options
+      - main options
+      - navigation menu
+      - top menu
+      
+  - intent: ask_custom_question
+    examples: |
+      - /ask_custom_question
+      - type my question
+      - custom question
+      - something else
+      - other
+      - I have another question
+      - let me ask something
+      - different question
+      - ask freely
+      - ask anything
+      - free question
+      - any other question
+      - something different
+      - I want to ask something
+      - let me type a question
+      - ask my question
+      - my own question
+      - ask directly
+      - other options
+      - more help
+      - something else I need help with
+      - I have a specific question
+      - different inquiry
+      - new question
+      - ask custom
+      - off menu question

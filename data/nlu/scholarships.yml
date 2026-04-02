@@ -1,0 +1,73 @@
+version: "3.1"
+
+nlu:
+
+# ==================================================
+# SCHOLARSHIPS (7 intents)
+# ==================================================
+
+- intent: scholarship_eligibility
+  examples: |
+    - scholarship eligibility
+    - who can apply scholarship
+    - am I eligible for scholarship
+    - scholarship criteria
+    - eligibility for fee reimbursement
+    - can I get scholarship
+    - scholarship requirements
+    - what are the requirements for scholarship
+
+- intent: scholarship_application
+  examples: |
+    - apply for scholarship
+    - scholarship application process
+    - how to apply for scholarship
+    - scholarship application
+    - where to apply scholarship
+    - scholarship registration
+    - scholarship application form
+
+- intent: scholarship_renewal
+  examples: |
+    - scholarship renewal
+    - renew fee reimbursement
+    - how to renew scholarship
+    - scholarship renewal process
+    - reimbursement renewal
+    - continue scholarship next year
+
+- intent: scholarship_status
+  examples: |
+    - scholarship status
+    - reimbursement not credited
+    - scholarship payment status
+    - check scholarship status
+    - where is my scholarship amount
+    - scholarship pending
+    - scholarship not received
+
+- intent: minority_scholarship
+  examples: |
+    - minority scholarship
+    - minority reimbursement
+    - minority welfare scholarship
+    - minority scholarship details
+    - minority fee reimbursement
+
+- intent: merit_scholarship
+  examples: |
+    - merit scholarship
+    - topper scholarship
+    - merit based scholarship
+    - scholarship for toppers
+    - academic scholarship
+    - scholarship for high marks
+
+- intent: scholarship_documents
+  examples: |
+    - documents for scholarship
+    - income certificate requirement
+    - what documents needed for scholarship
+    - scholarship documents list
+    - papers required for scholarship
+    - certificates for scholarship

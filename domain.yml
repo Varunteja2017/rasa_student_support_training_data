@@ -1,0 +1,938 @@
+version: "3.1"
+
+intents:
+  - greet
+  - goodbye
+  - affirm
+  - deny
+  - menu_selection
+  - back_to_menu
+  - ask_custom_question
+  - ask_admission_procedure
+  - ask_admission_eligibility
+  - ask_admission_dates
+  - ask_entrance_exam
+  - ask_fee_structure
+  - ask_fee_payment
+  - ask_fee_payment_method
+  - ask_fee_receipt
+  - ask_fee_refund
+  - ask_installment_payment
+  - ask_scholarship_fee
+  - ask_fee_paid_not_updated
+  - ask_payment_failed_money_deducted
+  - fee_payment_failure
+  - ask_bonafide_certificate
+  - ask_transfer_certificate
+  - ask_marks_memo
+  - ask_provisional_certificate
+  - ask_exam_schedule
+  - ask_hall_ticket
+  - ask_results
+  - ask_revaluation
+  - ask_supplementary_exam
+  - ask_contact_info
+  - ask_office_hours
+  - technical_issue_erp
+  - technical_issue_email
+  - technical_issue_lms
+  - ask_anti_ragging
+  - out_of_scope
+  - ask_my_tickets
+  - ask_ticket_status
+  - ask_create_ticket
+  - ask_ticket_history
+  - exam_registration
+  - ask_college_info
+  - select_tickets
+  - ask_ticket_by_id
+  - ask_search_ticket
+  - return_to_menu
+  - hostel_fee
+  - hostel_admission
+  - hostel_rules
+  - hostel_room_allotment
+  - hostel_mess
+  - hostel_complaint
+  - faq_helpful
+  - faq_not_helpful
+  - academic_calendar
+  - admission_branch_change
+  - admission_cancellation
+  - admission_documents
+  - admission_eamcet
+  - admission_fee_payment
+  - admission_lateral_entry
+  - admission_management_quota
+  - admission_spot
+  - ask_character_certificate
+  - ask_college_address
+  - ask_contact_details
+  - ask_course_completion_certificate
+  - ask_courses_offered
+  - ask_cutoff_ranks
+  - ask_department_contact
+  - ask_document_verification
+  - ask_duplicate_documents
+  - ask_eligibility_criteria
+  - ask_email_access
+  - ask_erp_login
+  - ask_exam_attendance
+  - ask_exam_results
+  - ask_exam_rules
+  - ask_id_card
+  - ask_late_fee_fine
+  - ask_lms_access
+  - ask_migration_certificate
+  - ask_office_timings
+  - ask_password_reset
+  - ask_principal_contact
+  - ask_seat_availability
+  - ask_student_grievance
+  - ask_website
+  - attendance_not_updated
+  - attendance_requirement
+  - companies_visiting
+  - credits_system
+  - electives_info
+  - exam_absence
+  - external_marks
+  - faculty_contact
+  - fallback
+  - fee_payment_deadline
+  - internal_marks
+  - internship_opportunities
+  - lab_schedule
+  - lms_login_issue
+  - malpractice_rules
+  - marks_not_visible
+  - merit_scholarship
+  - minority_scholarship
+  - placement_cell_contact
+  - placement_eligibility
+  - placement_statistics
+  - placement_training
+  - profile_update_issue
+  - results_delay
+  - scholarship_application
+  - scholarship_documents
+  - scholarship_eligibility
+  - scholarship_renewal
+  - scholarship_status
+  - select_grievances
+  - syllabus_query
+  - thank_you
+  - tuition_fee
+
+entities:
+  - menu
+
+actions:
+  - action_llm_response
+  - action_check_tickets
+  - action_show_main_menu
+  - action_show_admissions_menu
+  - action_show_fees_menu
+  - action_show_documents_menu
+  - action_show_exams_menu
+  - action_show_technical_menu
+  - action_show_contact_menu
+  - action_show_tickets_menu
+  - action_return_to_menu
+  - action_smart_query_handler
+  - action_ask_custom_question
+  - action_create_ticket_fallback
+  - action_search_ticket_by_id
+  - action_search_ticket
+  - action_faq_helpful
+
+responses:
+  utter_greet:
+        - text: "Hello! 👋 I'm CBIT's AI assistant."
+  
+  utter_goodbye:
+  - text: "Goodbye! Have a great day! 👋 Feel free to reach out anytime."
+  
+    buttons:
+      - title: "🏠 Back to main menu"
+        payload: "/select_menu_root"
+      - title: "❓ Ask another question"
+        payload: "/ask_custom_question"
+  utter_anything_else:
+  - text: "Is there anything else I can help you with?"
+  
+    buttons:
+      - title: "🏠 Back to main menu"
+        payload: "/select_menu_root"
+      - title: "❓ Ask another question"
+        payload: "/ask_custom_question"
+  utter_default:
+  - text: "I'm here to help with CBIT admissions, fees, documents, exams, and technical issues. What would you like to know?"
+
+    buttons:
+      - title: "🏠 Back to main menu"
+        payload: "/select_menu_root"
+      - title: "❓ Ask another question"
+        payload: "/ask_custom_question"
+  # ADMISSION ANSWERS
+  utter_admission_procedure:
+  - text: "📋 CBIT Admission Procedure:\n\nFor B.Tech: Apply through TS EAMCET counseling at tgeapcet.nic.in, select CBIT (Code: CBIT), attend with original certificates.\n\nFor M.Tech: Through TGPGCET/GATE counseling.\n\nFor MBA: Through TGICET counseling.\n\nManagement Quota: Direct admission available (limited seats) - visit admission office.\n\n📞 Admission Office: 040-24193276\n📧 admissions@cbit.ac.in"
+  
+    buttons:
+      - title: "🏠 Back to main menu"
+        payload: "/select_menu_root"
+      - title: "❓ Ask another question"
+        payload: "/ask_custom_question"
+  utter_eligibility_criteria:
+  - text: "Eligibility Criteria:\n\nB.Tech: 45% in 10+2 with PCM (40% for SC/ST/BC). Qualified in TS EAMCET/JEE Mains.\n\nM.Tech: B.Tech degree with valid GATE/TGPGCET score.\n\nMBA: Bachelor's degree with valid TGICET score.\n\nManagement Quota B.Tech: Min 45% in Intermediate (PCM), qualified in EAMCET/JEE."
+  
+    buttons:
+      - title: "🏠 Back to main menu"
+        payload: "/select_menu_root"
+      - title: "❓ Ask another question"
+        payload: "/ask_custom_question"
+  utter_entrance_exam:
+  - text: "Entrance Exams:\n\n✅ B.Tech: TS EAMCET / JEE Mains\n✅ M.Tech: GATE or TGPGCET\n✅ MBA: TGICET\n\nAll admissions are merit-based through state counseling. Approximate cutoffs - CSE: 500-5000, ECE: 3000-15000, EEE: 5000-20000."
+  
+    buttons:
+      - title: "🏠 Back to main menu"
+        payload: "/select_menu_root"
+      - title: "❓ Ask another question"
+        payload: "/ask_custom_question"
+  utter_admission_dates:
+  - text: "Admission Schedule:\n\nAdmissions follow TS EAMCET/TGPGCET counseling schedule, typically during July-August. Counseling is conducted in multiple rounds. Registration opens after results are declared. Contact Admission Office for specific dates: 040-24193276"
+
+    buttons:
+      - title: "🏠 Back to main menu"
+        payload: "/select_menu_root"
+      - title: "❓ Ask another question"
+        payload: "/ask_custom_question"
+  # FEE ANSWERS
+  utter_fee_structure:
+  - text: "B.Tech annual fee is ₹2,30,000 (excluding exam fees). M.Tech: ₹XXXX per year. MBA: ₹XXXX per year."
+  
+    buttons:
+      - title: "🏠 Back to main menu"
+        payload: "/select_menu_root"
+      - title: "❓ Ask another question"
+        payload: "/ask_custom_question"
+  utter_fee_payment_method:
+  - text: "💳 Fee Payment Methods:\n\nOnline Payment (Recommended):\n1. Login to student portal (erp portal)\n2. Go to Fee Payment section\n3. Pay via Net Banking, UPI, Debit/Credit Cards\nProcess:\n1. Visit Accounts Office (Room 105, Admin Block)\n2. Request fee payment with your Roll Number\n3. Fill with your details\n4. Pay via UPI/Cash in favor of 'CBIT' (mention your Roll No. as note in UPI)\n5. Submit paid voucher to Accounts Office\n\nImportant Notes:\n• Submit before due date to avoid late fee\n• For cheques: ensure clearance before deadline\n\nOffline Payment:\nDemand Draft/Cheque in favor of 'CBIT' payable at Hyderabad\n\n📞 Accounts Office: 040-24193266\n⏰ Office Hours: 9:30 AM - 4:30 PM (Mon-Sat)"
+  
+    buttons:
+      - title: "🏠 Back to main menu"
+        payload: "/select_menu_root"
+      - title: "❓ Ask another question"
+        payload: "/ask_custom_question"
+  utter_fee_payment_deadline:
+  - text: "📅 Fee Payment Deadlines:\n\nOdd Semester (1st, 3rd, 5th, 7th): Last date is 15th August. Late payment with fine until 31st August.\n\nEven Semester (2nd, 4th, 6th, 8th): Last date is 15th January. Late payment with fine until 31st January.\n\nFor 6th semester specifically: The last date is 15th January (with late fee accepted until 31st January).\n\n⚠️ Late fine: ₹500 (1-7 days), ₹1,000 (8-15 days), ₹2,000 (16-30 days). Fee payment is mandatory to download hall ticket!"
+  
+    buttons:
+      - title: "🏠 Back to main menu"
+        payload: "/select_menu_root"
+      - title: "❓ Ask another question"
+        payload: "/ask_custom_question"
+  utter_fee_receipt:
+  - text: "Download fee receipt from student portal: Login → Payment History → Enter the payment id received in messages → Download. If not visible after 2 hours, clear cache and re-login. For issues, visit Accounts Section: Counter 1 for 1st and 2nd year students and Counter 2 for 3rd and 4th year students."
+  
+    buttons:
+      - title: "🏠 Back to main menu"
+        payload: "/select_menu_root"
+      - title: "❓ Ask another question"
+        payload: "/ask_custom_question"
+  utter_fee_refund:
+  - text: "Fee refund processed as per college policy. Submit application to Accounts office with fee receipt and reason. Processing takes 30-45 days."
+  
+    buttons:
+      - title: "🏠 Back to main menu"
+        payload: "/select_menu_root"
+      - title: "❓ Ask another question"
+        payload: "/ask_custom_question"
+  utter_installment_payment:
+  - text: "No, fees cannot be paid in installments. No late fee if paid within due dates. Your payment schedule is available in the student portal under Fee Details."
+  
+    buttons:
+      - title: "🏠 Back to main menu"
+        payload: "/select_menu_root"
+      - title: "❓ Ask another question"
+        payload: "/ask_custom_question"
+  utter_late_fee_fine:
+  - text: "Late fee: ₹500 per day after due date . Semester exams blocked if fee dues exist. Pay immediately through ERP or Accounts office to avoid penalties."
+  
+    buttons:
+      - title: "🏠 Back to main menu"
+        payload: "/select_menu_root"
+      - title: "❓ Ask another question"
+        payload: "/ask_custom_question"
+  utter_scholarship_fee:
+  - text: "Fee reimbursement available for eligible students (SC/ST/BC/EBC/Minority). Apply through TS ePass portal. Provide all required documents to Scholarship Section."
+
+    buttons:
+      - title: "🏠 Back to main menu"
+        payload: "/select_menu_root"
+      - title: "❓ Ask another question"
+        payload: "/ask_custom_question"
+  # DOCUMENT ANSWERS
+  utter_bonafide_certificate:
+  - text: "Apply at Counter Section. Required: ID card, 50 ruppees.Once payment is done, you'll have to submit the form to respective counter (Counter 1 for 1st and 2nd year students and Counter 2 for 3rd and 4th year students). Processing time: 1-2 working days. Collect during office hours (10 AM - 5 PM)."
+  
+    buttons:
+      - title: "🏠 Back to main menu"
+        payload: "/select_menu_root"
+      - title: "❓ Ask another question"
+        payload: "/ask_custom_question"
+  utter_transfer_certificate:
+  - text: "Apply at AEC office after course completion. Required: All dues clearance, library clearance, ID card submission. Processing: 7-10 days."
+  
+    buttons:
+      - title: "🏠 Back to main menu"
+        payload: "/select_menu_root"
+      - title: "❓ Ask another question"
+        payload: "/ask_custom_question"
+  utter_marks_memo:
+  - text: "Original marks memo issued after respective semester results. Duplicate memo: Apply at AEC office with ₹300 fee. Processing: 15-20 days."
+ 
+    buttons:
+      - title: "🏠 Back to main menu"
+        payload: "/select_menu_root"
+      - title: "❓ Ask another question"
+        payload: "/ask_custom_question"
+  # EXAMINATION ANSWERS
+  utter_exam_schedule:
+  - text: "📅 Exam Schedule:\n\nMid-1: 4th-5th week (September/February)\nMid-2: 10th-11th week (November/April)\nSemester End: December/May\n\nExact dates are available in student portal → Academics → Exam Schedule. Updates are also posted in respective class groups."
+  
+    buttons:
+      - title: "🏠 Back to main menu"
+        payload: "/select_menu_root"
+      - title: "❓ Ask another question"
+        payload: "/ask_custom_question"
+  utter_hall_ticket:
+  - text: "📄 Hall Ticket:\n\nDownload from student portal 1 week before exams.\n\nRequirements:\n✅ 75% attendance\n✅ Fee payment completed\n\nNot visible?\n- View your attendance (Portal → Attendance)\n- Confirm fee payment status\n- Upload photo if missing\n- Contact Examinations: 040-24193262"
+  
+    buttons:
+      - title: "🏠 Back to main menu"
+        payload: "/select_menu_root"
+      - title: "❓ Ask another question"
+        payload: "/ask_custom_question"
+  utter_exam_results:
+  - text: "📊 Results:\n\nInternal marks: Published within 2 months of semester exams in student portal\nPass Criteria: 40/100 overall (min 28/70 external)\n\nLogin to erp portal → Overall Marks Result → Results."
+  
+    buttons:
+      - title: "🏠 Back to main menu"
+        payload: "/select_menu_root"
+      - title: "❓ Ask another question"
+        payload: "/ask_custom_question"
+  utter_revaluation:
+  - text: "🔄 Revaluation Process:\n\n1. Apply within 10 days of result in erp portal\n2. Fee: ₹700 per subject\n3. Results in 30-45 days\n5. Success rate: 15-20%\n\nTypically marks increase by 3-8 marks if successful."
+  
+    buttons:
+      - title: "🏠 Back to main menu"
+        payload: "/select_menu_root"
+      - title: "❓ Ask another question"
+        payload: "/ask_custom_question"
+  utter_supplementary_exam:
+  - text: "📝 Supplementary Exams:\n\nFor failed subjects. Conducted 2-3 months after regular exams.\n\nProcess:\n1. Register in student portal\n2. Pay ₹1,500 per subject\n3. Download hall ticket\n4. Appear for exam\n\nDates are announced on AEC notice board and student portal."
+  
+    buttons:
+      - title: "🏠 Back to main menu"
+        payload: "/select_menu_root"
+      - title: "❓ Ask another question"
+        payload: "/ask_custom_question"
+  utter_exam_attendance:
+  - text: "📊 Attendance Requirement:\n\nMandatory: 75% attendance for exam eligibility\n\nCondonation (65-75%):\n- Apply with medical certificate\n- Fee: ₹500 per subject\n- Academic Council approval needed\n\nBelow 65%: Detained, cannot appear for exams.\n\nContact: 040-24193262"
+
+    buttons:
+      - title: "🏠 Back to main menu"
+        payload: "/select_menu_root"
+      - title: "❓ Ask another question"
+        payload: "/ask_custom_question"
+  # CONTACT & OFFICE ANSWERS
+  utter_contact_info:
+  - text: "📞 CBIT Contact Information:\n\n📍 Chaitanya Bharathi Institute of Technology\nGandipet, Hyderabad - 500075\n\n☎️ Main: 040-24193276/77/78\n📧 principal@cbit.ac.in\n\nDepartment Contacts:\n- Admissions: 040-24193276\n- Examinations: 040-24193262\n- Accounts: 040-24193266\n- Placements: 040-24193288"
+  
+    buttons:
+      - title: "🏠 Back to main menu"
+        payload: "/select_menu_root"
+      - title: "❓ Ask another question"
+        payload: "/ask_custom_question"
+  utter_office_hours:
+  - text: "⏰ Office Hours:\n\nMonday-Saturday: 9:30 AM - 4:30 PM\nClosed: Sundays and public holidays\n\nLunch Break: 1:00 PM - 1:30 PM\n\nEmergency: Contact security at main gate"
+  
+    buttons:
+      - title: "🏠 Back to main menu"
+        payload: "/select_menu_root"
+      - title: "❓ Ask another question"
+        payload: "/ask_custom_question"
+  utter_department_contact:
+  - text: "Contact respective HODs during office hours. Email format: hod_dept@cbit.ac.in (e.g., hod_cse@cbit.ac.in). Main office: 8466997201 for department extensions."
+
+    buttons:
+      - title: "🏠 Back to main menu"
+        payload: "/select_menu_root"
+      - title: "❓ Ask another question"
+        payload: "/ask_custom_question"
+  # TECHNICAL ISSUES ANSWERS
+  utter_technical_issue_erp:
+  - text: "🖥️ Student Portal Login Issues:\n\nUsername: Your roll number\nDefault Password: Roll No\n\nProblems?\n- Forgot password → Use 'Forgot Password' with roll no + email\n- Account locked → Wait 30 min or visit respective dept\n- Wrong credentials 5 times = locked\n\nVisit Department heads with ID card.\nOffice: 9:30 AM - 4:30 PM"
+  
+    buttons:
+      - title: "🏠 Back to main menu"
+        payload: "/select_menu_root"
+      - title: "❓ Ask another question"
+        payload: "/ask_custom_question"
+  utter_technical_issue_email:
+  - text: "📧 College Email Issues:\n\nEmail ID: rollnumber@cbit.org.in\nAccess: Login at mail.google.com\n\nPassword Reset:\n1. Visit Department heads with ID card\n2. Fill reset form\n3. New password issued immediately\n\nCommon issues:\n- Storage full → Delete old emails\n- Can't send → Check recipient address\n\nIT Support: CC1 Building, 9:30 AM - 4:30 PM"
+
+    buttons:
+      - title: "🏠 Back to main menu"
+        payload: "/select_menu_root"
+      - title: "❓ Ask another question"
+        payload: "/ask_custom_question"
+  utter_anti_ragging:
+  - text: "CBIT is strict anti-ragging campus. Report incidents immediately to: Anti-Ragging Cell , Principal, or Dean Student Affairs. Anonymous complaints accepted. 24/7 helpline available."
+   
+    buttons:
+      - title: "🏠 Back to main menu"
+        payload: "/select_menu_root"
+      - title: "❓ Ask another question"
+        payload: "/ask_custom_question"
+  # TICKET ANSWERS
+  utter_my_tickets:
+  - text: "You can view all your support tickets in the 'My Tickets' section. Each ticket shows current status, priority, category, and assigned staff. Track progress and updates easily."
+  
+    buttons:
+      - title: "🏠 Back to main menu"
+        payload: "/select_menu_root"
+      - title: "❓ Ask another question"
+        payload: "/ask_custom_question"
+  utter_ticket_status:
+  - text: "Ticket statuses: Open (newly created), In Progress (being worked on), Resolved (issue fixed), Closed (completed). You'll receive notifications on status changes."
+  
+    buttons:
+      - title: "🏠 Back to main menu"
+        payload: "/select_menu_root"
+      - title: "❓ Ask another question"
+        payload: "/ask_custom_question"
+  utter_create_ticket:
+  - text: "Create a new support ticket by: 1) Click 'Create Ticket' button, 2) Select category (Academic, Administrative, Technical, etc.), 3) Add title and detailed description, 4) Choose priority level, 5) Submit. You'll get a ticket ID for tracking."
+  
+    buttons:
+      - title: "🏠 Back to main menu"
+        payload: "/select_menu_root"
+      - title: "❓ Ask another question"
+        payload: "/ask_custom_question"
+  utter_ticket_history:
+  - text: "View your complete ticket history in 'My Tickets' section. Filter by status, date, or category. Each ticket shows creation date, last update, resolution time, and complete conversation thread with support staff."
+  
+    buttons:
+      - title: "🏠 Back to main menu"
+        payload: "/select_menu_root"
+      - title: "❓ Ask another question"
+        payload: "/ask_custom_question"
+  utter_ask_custom_question:
+  - text: "💬 Sure! Please type your question below and I'll do my best to help you.\n\nYou can ask me anything about:\n• Admissions & Eligibility\n• Fee Payment & Receipts\n• Certificates & Documents\n• Exam Schedules & Results\n• Technical Issues\n• Contact Information\n\nGo ahead, type your question! 👇"
+  
+    buttons:
+      - title: "🏠 Back to main menu"
+        payload: "/select_menu_root"
+      - title: "❓ Ask another question"
+        payload: "/ask_custom_question"
+  utter_exam_registration:
+  - text: "📝 Exam Registration:\n\nExam registration is automatic when you:\n✅ Have 75% attendance\n✅ Paid semester fees\n\nHall ticket serves as exam registration proof. Download from student portal 1 week before exams.\n\nIf hall ticket not visible:\n- Check attendance percentage\n- Verify fee payment status\n- Contact Examinations: 040-24193262\n\nNo separate registration needed for regular exams."
+  
+    buttons:
+      - title: "🏠 Back to main menu"
+        payload: "/select_menu_root"
+      - title: "❓ Ask another question"
+        payload: "/ask_custom_question"
+  utter_college_info:
+  - text: "🏛️ About CBIT (Chaitanya Bharathi Institute of Technology):\n\n📍 Location: Gandipet, Hyderabad - 500075\n🎓 Established: 1979\n🏅 Accreditation: NAAC A+ Grade, NBA Accredited\n👥 Affiliation: Osmania University\n\nOffered Programs:\n• B.Tech (9 branches)\n• M.Tech (Multiple specializations)\n• MBA\n\nFacilities: Modern labs, central library, sports complex, hostels, placement cell\n\n📞 Contact: 040-24193276/77/78\n🌐 Website: cbit.ac.in"
+  
+    buttons:
+      - title: "🏠 Back to main menu"
+        payload: "/select_menu_root"
+      - title: "❓ Ask another question"
+        payload: "/ask_custom_question"
+  utter_hostel_fee:
+  - text: "🏠 CBIT Hostel Fee Structure:\n\nBoys Hostel (Annual):\n• Accommodation: ₹90,000/year\n• Total: ₹90,000 deposit\n\nGirls Hostel (Annual):\n• Accommodation: ₹60,000/year\n• Payment: Can be paid semester-wise or annually\nIncludes: Room, bed, electricity, water, 3 meals daily\n\n📞 Hostel Office: 040-24193280"
+  
+    buttons:
+      - title: "🏠 Back to main menu"
+        payload: "/select_menu_root"
+      - title: "❓ Ask another question"
+        payload: "/ask_custom_question"
+  utter_hostel_admission:
+  - text: "🏫 Hostel Admission Process:\n\nStep 1: Fill hostel application form during college admission\nStep 2: Submit required documents:\n   • Admission letter\n   • ID proof\n   • Parent consent letter\n   • Medical certificate\nStep 3: Pay hostel fees and deposit\nStep 4: Room allotment within 2-3 days\nStep 5: Report to hostel warden with documents\n\nPriority: Given to outstation students first\nAvailability: Limited seats (first-come-first-served)\n\n📞 Contact: Hostel Warden - 040-24193280\n📧 Email: hostel@cbit.ac.in"
+  
+    buttons:
+      - title: "🏠 Back to main menu"
+        payload: "/select_menu_root"
+      - title: "❓ Ask another question"
+        payload: "/ask_custom_question"
+  utter_hostel_rules:
+  - text: "📋 CBIT Hostel Rules & Timings:\n\nGate Timings:\n• Boys: 6:00 AM - 9:30 PM (weekdays)\n• Boys: 6:00 AM - 10:00 PM (weekends)\n• Girls: 6:00 AM - 8:30 PM (weekdays)\n• Girls: 6:00 AM - 9:00 PM (weekends)\n\nImportant Rules:\n• ID card mandatory for entry\n• Visitors allowed 4:00 PM - 7:00 PM only\n• No ragging - strict action\n• Maintain cleanliness\n• No smoking/alcohol - immediate expulsion\n• Late entry requires prior permission\n\nMess Timings:\n• Breakfast: 7:30 AM - 9:00 AM\n• Lunch: 12:30 PM - 2:30 PM\n• Snacks: 5:00 PM - 6:00 PM\n• Dinner: 7:30 PM - 9:30 PM"
+  
+    buttons:
+      - title: "🏠 Back to main menu"
+        payload: "/select_menu_root"
+      - title: "❓ Ask another question"
+        payload: "/ask_custom_question"
+  utter_hostel_room_allotment:
+  - text: "🚪 Hostel Room Allotment:\n\nRooms are allotted based on:\n1. Year of study\n2. Branch\n3. Application date\n\nRoom Types:\n• 3-sharing rooms (common)\n• 2-sharing rooms (limited)\n\nFacilities per room:\n• Beds with mattresses\n• Study tables and chairs\n• Almirah/cupboard for each student\n• Fans and lights\n• Attached/common washrooms\n\nRoom Change:\nAllowed only in special cases. Apply to hostel warden with valid reason.\n\n📞 Hostel Office: 040-24193280"
+  
+    buttons:
+      - title: "🏠 Back to main menu"
+        payload: "/select_menu_root"
+      - title: "❓ Ask another question"
+        payload: "/ask_custom_question"
+  utter_hostel_mess:
+  - text: "🍽️ Hostel Mess Information:\n\nMess Timings:\n• Breakfast: 7:30 AM - 9:00 AM\n• Lunch: 12:30 PM - 2:30 PM\n• Evening Snacks: 5:00 PM - 6:00 PM\n• Dinner: 7:30 PM - 9:30 PM\n\nMenu: Weekly menu displayed on mess notice board\n• North & South Indian food\n• Vegetarian options available\n• Special meals on festivals\n\nMess Fee: ₹10,000 per quarter (paid quarterly)\n\nComplaints: Mess committee meets weekly\nContact: Mess Secretary or Hostel Warden\n\n📞 Mess Office: 040-24193280"
+  
+    buttons:
+      - title: "🏠 Back to main menu"
+        payload: "/select_menu_root"
+      - title: "❓ Ask another question"
+        payload: "/ask_custom_question"
+  utter_hostel_complaint:
+  - text: "📢 Hostel Complaint/Issue:\n\nHow to raise complaint:\n1. Minor issues: Inform room caretaker/attender\n2. Maintenance: Fill complaint register at hostel office\n3. Serious issues: Meet hostel warden directly\n4. Emergency: Call hostel office 24x7\n\nCommon Issues:\n• Electricity/Water: Hostel maintenance\n• Cleaning: Room attendant\n• Food quality: Mess committee\n• Discipline issues: Hostel warden\n\nResponse Time: 24-48 hours for most issues\n\n📞 Hostel Office: 040-24193280 (24x7)\n📧 Email: hostel@cbit.ac.in"
+  
+    buttons:
+      - title: "🏠 Back to main menu"
+        payload: "/select_menu_root"
+      - title: "❓ Ask another question"
+        payload: "/ask_custom_question"
+  utter_return_to_menu:
+  - text: "Would you like to return to the main menu or ask another question?"
+  
+    buttons:
+      - title: "🏠 Back to main menu"
+        payload: "/select_menu_root"
+      - title: "❓ Ask another question"
+        payload: "/ask_custom_question"
+  utter_faq_helpful:
+  - text: "✅ Thank you for your feedback!\n\nI'm glad I could help! 😊\n\nNeed anything else?"
+  
+    buttons:
+      - title: "🏠 Back to main menu"
+        payload: "/select_menu_root"
+      - title: "❓ Ask another question"
+        payload: "/ask_custom_question"
+  utter_faq_not_helpful:
+  - text: "😔 Sorry the answer wasn't helpful. Create a support ticket for personalized assistance or post in forum for further discussions."
+
+    buttons:
+      - title: "🏠 Back to main menu"
+        payload: "/select_menu_root"
+      - title: "❓ Ask another question"
+        payload: "/ask_custom_question"
+  utter_ask_admission_documents:
+  - text: "Documents required for CBIT admission include:\n1. SSC (10th) Marks Memo\n2. Intermediate (12th) Marks Memo\n3. EAMCET/JEE Rank Card\n4. EAMCET Allotment Order\n5. Transfer Certificate (TC)\n6. Conduct Certificate from previous institution\n7. Migration Certificate (if applicable)\n8. Caste Certificate (SC/ST/OBC if applicable)\n9. Income Certificate (for fee reimbursement)\n10. Aadhaar Card\n11. Passport-size photographs (10 copies)\nOriginals and 2 sets of photocopies are required."
+  
+    buttons:
+      - title: "🏠 Back to main menu"
+        payload: "/select_menu_root"
+      - title: "❓ Ask another question"
+        payload: "/ask_custom_question"
+  utter_ask_admission_confirmation:
+  - text: |
+      After receiving your EAMCET seat allotment order, visit CBIT's admissions office with all required documents. Pay the admission fee at the fee counter. Submit original documents for verification. You will receive an acknowledgment and student ID upon confirmation. The process is usually completed within 1-2 working days.
+
+    buttons:
+      - title: "🏠 Back to main menu"
+        payload: "/select_menu_root"
+      - title: "❓ Ask another question"
+        payload: "/ask_custom_question"
+  utter_ask_lateral_entry:
+  - text: |
+      Lateral entry is for diploma holders or B.Sc graduates seeking direct admission into 2nd year (3rd semester) of B.Tech. Requirements: ECET Rank Card, Diploma/B.Sc Marks Memos (all semesters), Transfer Certificate, Conduct Certificate, Aadhaar Card, Caste Certificate (if applicable), and passport photos. Admission is through TS ECET counseling. Visit the admissions counter at CBIT with documents after receiving your ECET allotment order.
+
+    buttons:
+      - title: "🏠 Back to main menu"
+        payload: "/select_menu_root"
+      - title: "❓ Ask another question"
+        payload: "/ask_custom_question"
+  utter_ask_fee_payment_ways:
+  - text: |
+      Two ways to pay fees at CBIT:
+      1. Online via ERP Portal: Visit the CBIT ERP portal, log in with your student credentials, pay using net banking, UPI, or debit/credit card.
+      2. Offline at Administration Counter: Visit Counter 1 (1st & 2nd year) or Counter 2 (3rd & 4th year) with cash or DD.
+
+    buttons:
+      - title: "🏠 Back to main menu"
+        payload: "/select_menu_root"
+      - title: "❓ Ask another question"
+        payload: "/ask_custom_question"
+  utter_ask_erp_payment_steps:
+  - text: |
+      Steps to pay fee through ERP:
+      1. Visit the CBIT ERP portal.
+      2. Log in using your Student ID and password.
+      3. Navigate to 'Fee Payment' section.
+      4. Select the semester and fee head.
+      5. Verify the amount displayed.
+      6. Choose payment method: Net Banking / UPI / Debit-Credit card.
+      7. Complete the transaction.
+      8. Download and save the payment receipt immediately after success.
+      If payment fails, wait 30 minutes before retrying.
+
+    buttons:
+      - title: "🏠 Back to main menu"
+        payload: "/select_menu_root"
+      - title: "❓ Ask another question"
+        payload: "/ask_custom_question"
+  utter_ask_fee_paid_not_updated:
+  - text: |
+      If your fee payment is done but details are not updated in ERP:
+      1) Check your bank statement or UPI app to confirm money was debited.
+      2) Take a screenshot of the payment proof (transaction ID, date, amount).
+      3) Visit the Administration Counter (Counter 1 for 1st-2nd year, Counter 2 for 3rd-4th year) immediately.
+      4) Show your fee payment proof along with your student ID.
+      5) The accounts team will verify and manually update records. Do this as soon as possible.
+
+    buttons:
+      - title: "🏠 Back to main menu"
+        payload: "/select_menu_root"
+      - title: "❓ Ask another question"
+        payload: "/ask_custom_question"
+
+  utter_ask_what_to_carry_for_exams:
+  - text: |
+      Items to carry for CBIT semester exams:
+      1) Original hall ticket (printed)
+      2) Original Student ID card
+      3) Geometry set / calculator (only if permitted)
+      4) Blue and black pens (carry spare)
+      5) Pencil and eraser (for diagrams)
+      Do NOT carry: mobile phones, smartwatches, Bluetooth devices, any notes or books. Store all prohibited items outside the exam hall.
+
+    buttons:
+      - title: "🏠 Back to main menu"
+        payload: "/select_menu_root"
+      - title: "❓ Ask another question"
+        payload: "/ask_custom_question"
+  utter_ask_when_memo_released:
+  - text: |
+      Semester memos (mark sheets) are issued after CBIT declares results and processes the data. For 5th semester (Odd semester, exams in Nov-Dec), memos are typically released by March-April. As of now, if results are recently declared, memos may not yet be ready. Please wait until approximately April. You will be notified through the Administration Counter and college notice boards when memos are available for collection.
+
+    buttons:
+      - title: "🏠 Back to main menu"
+        payload: "/select_menu_root"
+      - title: "❓ Ask another question"
+        payload: "/ask_custom_question"
+  utter_ask_memo_correction:
+  - text: |
+      If your semester memo has incorrect information:
+      1) Visit the Administration Counter with the incorrect memo and student ID.
+      2) CBIT will issue a corrected memo, which may take 1 month.
+      Report corrections immediately after receiving your memo. Do not delay.
+
+    buttons:
+      - title: "🏠 Back to main menu"
+        payload: "/select_menu_root"
+      - title: "❓ Ask another question"
+        payload: "/ask_custom_question"
+  utter_ask_lost_memo_duplicate:
+  - text: |
+      For a duplicate semester memo:
+      1) Visit the Administration Counter with the student ID along with the reason.
+      3) Submit a letter for duplicate memo along with the your details and reason.
+      4) Pay the prescribed duplicate document fee ( atmost Rs. 500 ).
+      5) Duplicate memos may take 1 month to process.
+
+    buttons:
+      - title: "🏠 Back to main menu"
+        payload: "/select_menu_root"
+      - title: "❓ Ask another question"
+        payload: "/ask_custom_question"
+  utter_ask_bonafide_certificate:
+  - text: |
+      To get a Bonafide Certificate:
+      1) Visit Counter 1 (1st-2nd year) or Counter 2 (3rd-4th year) during working hours (9 AM - 4 PM, Mon-Sat).
+      2) Submit a request letter stating the purpose (bank account, passport, VISA, internship, etc.).
+      3) Carry your original student ID card.
+      4) The certificate is usually issued on the same day or within 1-2 working days. Rs. 50 fee for the certificate.
+
+    buttons:
+      - title: "🏠 Back to main menu"
+        payload: "/select_menu_root"
+      - title: "❓ Ask another question"
+        payload: "/ask_custom_question"
+  utter_ask_hostel_application:
+  - text: |
+      CBIT provides hostel facilities for boys and girls. To apply:
+      1) Hostel admission forms are available at the Hostel Office and on cbit.ac.in.
+      2) Fill the form and submit with: student ID, college admission proof, parent's ID proof, medical fitness certificate, and passport photos.
+      3) Pay the hostel fee.
+      4) Allotment is based on availability and priority.
+      Contact the Hostel Warden for current availability.
+
+    buttons:
+      - title: "🏠 Back to main menu"
+        payload: "/select_menu_root"
+      - title: "❓ Ask another question"
+        payload: "/ask_custom_question"
+  utter_ask_library_access:
+  - text: |
+      The CBIT Central Library is accessible to all students with valid id card. Your student ID card is your library access card, no separate registration needed. Library working hours: Monday-Saturday, 9 AM to 6 PM. Closed on Sundays and public holidays.
+
+    buttons:
+      - title: "🏠 Back to main menu"
+        payload: "/select_menu_root"
+      - title: "❓ Ask another question"
+        payload: "/ask_custom_question"
+  utter_ask_counter1_services:
+  - text: |
+      Counter 1 at CBIT handles all administrative services for 1st Year and 2nd Year students (Semesters 1, 2, 3, and 4). Services include: fee-related queries and receipts, hall ticket collection and issues, semester memo collection, bonafide and study certificates, student ID card issues, duplicate document requests, and general administrative queries. Bring your student ID card.
+
+  utter_ask_counter_timings:
+  - text: |
+      CBIT Administration Counters (Counter 1 and 2) working hours:
+      - Monday to Saturday: 9:00 AM - 5:00 PM
+      - Lunch Break: 1:00 PM - 2:00 PM (counter may be closed)
+      - Sunday: Closed
+      - Government Holidays: Closed
+      During exam season or fee payment periods, extended hours may apply. Check the college notice board.
+
+    buttons:
+      - title: "🏠 Back to main menu"
+        payload: "/select_menu_root"
+      - title: "❓ Ask another question"
+        payload: "/ask_custom_question"
+  utter_raise_academic_ticket:
+  - text: |
+      To raise a ticket for an academic issue:
+      1) Use the chatbot's Raise Ticket option.
+      2) Select Academic Issue.
+      3) Fill in: Roll Number, Semester, Department, and description of the problem.
+      4) Attach any supporting documents (screenshot, memo copy) if available.
+      5) Submit the ticket. You will receive a Ticket ID.
+      The relevant department will respond within 2-3 working days.
+
+    buttons:
+      - title: "🏠 Back to main menu"
+        payload: "/select_menu_root"
+      - title: "❓ Ask another question"
+        payload: "/ask_custom_question"
+  utter_raise_payment_ticket:
+  - text: |
+      To raise a payment issue ticket:
+      1) Use the chatbot's Raise Ticket option.
+      2) Select Payment / Fee Issue.
+      3) Provide: Roll Number, Transaction ID, Date of Payment, Amount, and description of issue.
+      4) Attach a screenshot of the payment confirmation or bank statement.
+      5) Submit the ticket. The accounts section will review and respond within 1-2 working days.
+      For urgent matters, mark the priority as critical.
+
+    buttons:
+      - title: "🏠 Back to main menu"
+        payload: "/select_menu_root"
+      - title: "❓ Ask another question"
+        payload: "/ask_custom_question"
+  utter_track_ticket_status:
+  - text: |
+      To track your ticket:
+      1) Go to the Track Ticket section in the chatbot.
+      2) You will see the current status: Open, In Progress, Resolved, or Closed.
+      3) You will also receive SMS/email notifications when status changes to closed.
+
+    buttons:
+      - title: "🏠 Back to main menu"
+        payload: "/select_menu_root"
+      - title: "❓ Ask another question"
+        payload: "/ask_custom_question"
+  utter_ask_college_working_hours:
+  - text: |
+      CBIT working hours:
+      - Regular College Hours: 9:00 AM - 4:30 PM (Monday to Saturday)
+      - Administrative Office: 9:00 AM - 5:00 PM (Mon-Fri), 9:00 AM - 1:00 PM (Sat)
+      - Library: 9:00 AM - 6:00 PM (Mon-Sat)
+      - Closed: Sundays and gazetted holidays (Telangana government norms)
+      During exam periods, extended hours may apply for specific sections.
+
+    buttons:
+      - title: "🏠 Back to main menu"
+        payload: "/select_menu_root"
+      - title: "❓ Ask another question"
+        payload: "/ask_custom_question"
+  utter_ask_cafeteria_timings:
+  - text: |
+      Cafeteria timings vary by unit. Typical hours are:
+      - Breakfast: 8:00 AM - 10:00 AM
+      - Lunch: 12:30 PM - 2:30 PM
+      Special hours on event days.
+
+    buttons:
+      - title: "🏠 Back to main menu"
+        payload: "/select_menu_root"
+      - title: "❓ Ask another question"
+        payload: "/ask_custom_question"
+  # MENU RESPONSES (for navigation payloads)
+  utter_menu_root:
+  - text: "👋 Welcome to CBIT Student Support!\n\nWhat can I help you with today? Select a category or type your own question:"
+    buttons:
+      - title: "📚 Admissions & Enrollment"
+        payload: "/select_admissions"
+      - title: "💰 Fee Payment"
+        payload: "/select_fees"
+      - title: "📄 Certificates & Documents"
+        payload: "/select_documents"
+      - title: "📝 Examinations"
+        payload: "/select_exams"
+      - title: "💻 Technical Issues"
+        payload: "/select_technical"
+      - title: "🎫 Support Tickets"
+        payload: "/select_tickets"
+      - title: " Contact Information"
+        payload: "/select_contact"
+      - title: "✍️ Type Your Own Question"
+        payload: "/ask_custom_question"
+
+  utter_select_admissions:
+  - text: "🎓 Admissions Menu\n\nSelect a topic:"
+    buttons:
+      - title: "Admission Procedure"
+        payload: "/ask_admission_procedure"
+      - title: "Eligibility Criteria"
+        payload: "/ask_admission_eligibility"
+      - title: "Entrance Exams"
+        payload: "/ask_entrance_exam"
+      - title: "Admission Dates"
+        payload: "/ask_admission_dates"
+      - title: "Back to main menu"
+        payload: "/select_menu_root"
+
+  utter_select_fees:
+  - text: "💰 Fees Menu\n\nSelect a topic:"
+    buttons:
+      - title: "Fee Structure"
+        payload: "/ask_fee_structure"
+      - title: "Fee Payment Method"
+        payload: "/ask_fee_payment_method"
+      - title: "Payment Deadline"
+        payload: "/ask_fee_payment_deadline"
+      - title: "Fee Receipt"
+        payload: "/ask_fee_receipt"
+      - title: "Back to main menu"
+        payload: "/select_menu_root"
+
+  utter_select_exams:
+  - text: "📝 Exams Menu\n\nSelect a topic:"
+    buttons:
+      - title: "Exam Schedule"
+        payload: "/ask_exam_schedule"
+      - title: "Hall Ticket"
+        payload: "/ask_hall_ticket"
+      - title: "Results"
+        payload: "/ask_results"
+      - title: "Revaluation"
+        payload: "/ask_revaluation"
+      - title: "Back to main menu"
+        payload: "/select_menu_root"
+
+  utter_select_documents:
+  - text: "📄 Documents Menu\n\nSelect a topic:"
+    buttons:
+      - title: "Bonafide Certificate"
+        payload: "/ask_bonafide_certificate"
+      - title: "Transfer Certificate"
+        payload: "/ask_transfer_certificate"
+      - title: "Marks Memo"
+        payload: "/ask_marks_memo"
+      - title: "Provisional Certificate"
+        payload: "/ask_provisional_certificate"
+      - title: "Back to main menu"
+        payload: "/select_menu_root"
+
+  utter_select_technical:
+  - text: "💻 Technical Issues Menu\n\nSelect a topic:"
+    buttons:
+      - title: "ERP Issues"
+        payload: "/technical_issue_erp"
+      - title: "Email Issues"
+        payload: "/technical_issue_email"
+      - title: "Back to main menu"
+        payload: "/select_menu_root"
+
+  utter_select_contact:
+  - text: "📞 Contact Information:"
+    buttons:
+      - title: "Contact Info"
+        payload: "/ask_contact_info"
+      - title: "Office Hours"
+        payload: "/ask_office_hours"
+      - title: "Back to main menu"
+        payload: "/select_menu_root"
+
+  utter_select_tickets:
+  - text: "🎫 Support Tickets\n\nTo raise a new ticket, please open the Tickets section in the app. You can create detailed tickets there and track their status."
+    buttons:
+      - title: "Open Tickets"
+        payload: "/open_tickets_ui"
+      - title: "Track Ticket Status"
+        payload: "/track_ticket_status"
+      - title: "Back to main menu"
+        payload: "/select_menu_root"
+
+  utter_when_memo_released:
+  - text: "Semester memos (mark sheets) are issued after CBIT declares results and processes the data. Memos are typically available 2-3 months after semester exams. You will receive a notification when memos are ready for collection at the Administrative Counter."
+
+    buttons:
+      - title: "🏠 Back to main menu"
+        payload: "/select_menu_root"
+      - title: "❓ Ask another question"
+        payload: "/ask_custom_question"
+  utter_memo_correction:
+  - text: "If your semester memo has incorrect information, visit the Administrative Counter with your incorrect memo and student ID. CBIT will issue a corrected memo, which may take 2-3 weeks to process."
+
+    buttons:
+      - title: "🏠 Back to main menu"
+        payload: "/select_menu_root"
+      - title: "❓ Ask another question"
+        payload: "/ask_custom_question"
+  utter_lost_memo_duplicate:
+  - text: "For a duplicate semester memo, visit the Administrative Counter with your student ID and a letter explaining the situation. Pay the prescribed duplicate document fee (up to Rs. 500). Duplicate memos may take 1 month to process."
+
+    buttons:
+      - title: "🏠 Back to main menu"
+        payload: "/select_menu_root"
+      - title: "❓ Ask another question"
+        payload: "/ask_custom_question"
+  utter_ask_my_tickets:
+  - text: "📋 Your Support Tickets\n\nYou can view all your submitted or active support tickets in the Tickets section of the mobile app. Your ticket history shows:\n\n• Ticket ID - Unique ticket reference number\n• Status - Open, In Progress, or Resolved\n• Category - Academic, Payment, Technical, or Other\n• Date Created - When the ticket was submitted\n• Latest Update - Most recent response from support team\n\nTo view tickets, open the app and navigate to the Tickets section. Click on any ticket to see full details and updates."
+    buttons:
+      - title: "🏠 Back to main menu"
+        payload: "/select_menu_root"
+      - title: "❓ Ask another question"
+        payload: "/select_menu_root"
+  
+  utter_ask_hall_ticket_not_generated:
+  - text: "If your hall ticket hasn't been generated, here are the common reasons and solutions:\n\nPossible Reasons:\n• Fee payment not completed or not updated in system\n• Attendance below 75% (no condonation available)\n• Pending academic or disciplinary holds\n• Technical issues in the portal\n\nWhat to do:\n1. Check your fee receipt in ERP - confirm payment is updated\n2. Verify your attendance percentage with the academic office\n3. Visit Administrative Counter with your Student ID and fee receipt\n4. Check if there are any pending issues or holds\n5. Visit at least 5 days before exams\n\nContact Info:\n• Examination Cell: 040-24193262\n• Admissions: 040-24193276\n\nIf your fee was paid but hall ticket isn't generated, please create a support ticket and our team will investigate immediately."
+    buttons:
+      - title: "🏠 Back to main menu"
+        payload: "/select_menu_root"
+      - title: "❓ Ask another question"
+        payload: "/ask_custom_question"
+
+  utter_ask_payment_failed_money_deducted:
+  - text: "If your payment failed but money was deducted from your account, here's what to do:\n\nStep 1: Don't Panic - Follow These Steps\n• Payment failures can take 3-5 business days to reverse\n• Check your bank account after 5 days\n• Money may be returned automatically\n\nStep 2: If Money Isn't Returned Within 5 Days\n• Contact your bank's customer support immediately\n• Provide them with:\n  - Transaction ID\n  - Date and time of transaction\n  - Amount deducted\n  - Screenshots of both bank statement and failed payment confirmation\n\nStep 3: Contact CBIT\n• Visit Administrative Counter with transaction proof\n• Show the error message and bank statement\n• Request manual refund/reversal if bank cannot help\n\nStep 4: Retry Payment\n• Once money is refunded (takes 3-7 business days from bank)\n• Pay fees again through:\n  - ERP Portal (recommended - instant confirmation)\n  - Administrative Counter (direct payment)\n  - DD (Demand Draft)\n\nContact Info:\n• Administrative Counter: 040-24193276/77/78\n• College Email: accounts@cbit.ac.in\n• Working Hours: 9 AM - 5 PM (Mon-Sat)\n\nPro Tip: Use net banking or UPI for faster resolution if payment fails again."
+    buttons:
+      - title: "🏠 Back to main menu"
+        payload: "/select_menu_root"
+      - title: "❓ Ask another question"
+        payload: "/ask_custom_question"
+
+  utter_fee_payment_failure:
+  - text: "Your fee payment couldn't be processed. Here's how to resolve this:\n\nImmediate Steps:\n• Check your internet connection - this is often the cause\n• Verify your card/account has sufficient balance\n• Ensure your card is not blocked or expired\n\nIf Payment Failed:\n• Wait 5-10 minutes and try again\n• Try a different payment method (UPI, different card, net banking)\n• If using net banking, check your bank's website for any blocks\n\nError Messages:\n• \"Insufficient Balance\" - check account balance\n• \"Card Declined\" - contact your bank\n• \"Gateway Timeout\" - retry after 10 minutes\n• \"Transaction Failed\" - contact support\n\nImportant: Check if money was deducted even though payment failed. If yes, follow refund process.\n\nAlternative Payment Methods:\n1. ERP Portal: Net Banking, UPI, Credit/Debit Card\n2. Administrative Counter: Direct cash or DD (9 AM - 5 PM, Mon-Sat)\n3. Counter 1: For 1st-2nd year students\n4. Counter 2: For 3rd-4th year students\n\nIf Problem Persists:\n• Contact: 040-24193276/77/78\n• Email: accounts@cbit.ac.in\n• Visit counter with Student ID\n\nNeed Help? Create a support ticket and our team will assist within 24 hours."
+    buttons:
+      - title: "🏠 Back to main menu"
+        payload: "/select_menu_root"
+      - title: "❓ Ask another question"
+        payload: "/ask_custom_question"
+
+  utter_fee_receipt_issue:
+  - text: "If you're having issues with your fee receipt, here's what to do:\n\nReceipt Not Generated After Payment:\n• Login to ERP portal with your credentials\n• Go to Fee Payment section\n• Click 'Download Receipt' or 'View Receipt'\n• Receipt may take 5-10 minutes to generate\n• If still not visible after 1 hour, refresh the page\n\nReceipt Not Downloading:\n• Clear browser cache and cookies\n• Try a different browser\n• Disable any ad blockers or pop-up blockers\n• Check if your browser has download restrictions\n\nReceipt Not Generated After Failed Payment:\n• Failed payments don't generate receipts\n• Once payment succeeds, receipt will be auto-generated\n• Retry payment and check immediately after success\n\nLost or Damaged Receipt:\n• Visit Administrative Counter to request duplicate\n• Bring your Student ID card\n• Pay ₹50 fee for duplicate receipt\n• Duplicate receipt issued on same day or within 1-2 days\n\nReceipt Shows Wrong Amount/Details:\n• Screenshot the incorrect receipt\n• Visit Administrative Counter with Student ID\n• Request correction (takes 1-2 weeks)\n\nReceipt Not Visible in System:\n• Check your ERP login credentials\n• Use correct semester for receipt download\n• Contact college accounts team if payment was done offline\n\nContact Info:\n• Administrative Counter: 040-24193276/77/78\n• Counter 1: For 1st-2nd year students\n• Counter 2: For 3rd-4th year students\n• Hours: 9 AM - 5 PM (Mon-Sat), Lunch: 1-2 PM\n• Email: accounts@cbit.ac.in"
+    buttons:
+      - title: "🏠 Back to main menu"
+        payload: "/select_menu_root"
+      - title: "❓ Ask another question"
+        payload: "/ask_custom_question"

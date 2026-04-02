@@ -1,0 +1,186 @@
+version: "3.1"
+
+nlu:
+# Ticket Management Questions
+- intent: ask_my_tickets
+  examples: |
+    - Show my tickets
+    - My tickets
+    - What tickets do I have?
+    - List all my tickets
+    - Show my complaints
+    - My support tickets
+    - Check my tickets
+    - View my tickets
+    - What issues have I raised?
+    - My pending tickets
+    - Active tickets
+    - Open tickets
+    - In-progress tickets
+    - My recent tickets
+    - Current issues
+    - Support requests
+    - List of my complaints
+    - Ticket history
+    - All open issues
+    - My submitted tickets
+
+- intent: ask_ticket_status
+  examples: |
+    - What is the status of my ticket?
+    - Check ticket status
+    - Is my ticket resolved?
+    - Status of ticket [123](ticket_id)
+    - Track my ticket
+    - Has my issue been resolved?
+    - Update on my ticket
+    - Ticket progress
+    - Where is my ticket now?
+    - When will my ticket be resolved?
+    - Check complaint status
+    - My ticket status
+    - Is my issue resolved?
+    - Complaint tracking
+    - Status of my grievance
+    - Ticket number status
+    - ticket 456 status
+    - where are my tickets
+    - check if ticket resolved
+    - what's my ticket status
+    - any update on ticket
+    - ticket completion status
+    - when will ticket be resolved
+    - is my issue closed
+    - ticket progress update
+
+- intent: ask_create_ticket
+  examples: |
+    - I want to raise a ticket
+    - Create a new ticket
+    - Report an issue
+    - Raise a complaint
+    - I have a problem
+    - Submit a ticket
+    - Need to report something
+    - Log a complaint
+    - Create support ticket
+    - File a complaint
+    - How to raise a complaint
+    - Lodge a complaint
+    - Complaint procedure
+    - Where to complain
+    - Report problem
+    - Submit issue
+    - Log grievance
+    - File support request
+    - Create complaint
+    - Raise issue
+    - Start new ticket
+    - Open support request
+
+- intent: ask_ticket_history
+  examples: |
+    - Show my ticket history
+    - Past tickets
+    - Previous complaints
+    - Old tickets
+    - Resolved tickets
+    - Ticket archive
+    - All my tickets history
+    - Closed tickets
+    - Completed issues
+    - Previous issues
+    - Historical tickets
+    - Old complaints
+    - Archived tickets
+    - Past issues
+    - Resolved complaints
+    - Ticket records
+    - Previous support
+    - All past tickets
+    - Completed tickets
+    - Ticket log
+
+- intent: select_tickets
+  examples: |
+    - tickets
+    - support tickets
+    - my tickets
+    - show tickets menu
+    - ticket options
+    - ticket management
+    - view ticket options
+    - go to tickets
+    - ticket section
+    - support menu
+    - complaints menu
+    - ticket portal
+    - grievance menu
+    - help tickets
+    - access tickets
+    - view support
+    - ticket management menu
+    - open ticket
+    - manage tickets
+    - check tickets
+
+- intent: ask_ticket_by_id
+  examples: |
+    - search ticket by id
+    - find ticket using id
+    - search by ticket id
+    - lookup ticket id
+    - find my ticket by id
+    - search ticket using ticket number
+    - track ticket by id
+    - check ticket with id [123](ticket_id)
+    - ticket 123
+    - ticket id 456
+    - search for ticket 789
+    - lookup ticket number 101
+    - find ticket 2024-001
+    - check my ticket TKT-1234
+    - where is ticket TICKET-5678
+    - status of ticket 999
+    - retrieve ticket 555
+    - locate ticket 7890
+    - show me ticket TKT0001
+    - what about ticket TICKET-0042
+    - can you find ticket 12345
+    - search ticket 54321
+
+- intent: ask_search_ticket
+  examples: |
+    - search tickets
+    - find my tickets
+    - search for ticket
+    - lookup ticket
+    - find ticket by name
+    - search ticket by title
+    - locate my ticket
+    - search for issue
+    - locate complaint
+    - find complaint
+    - search complaint
+    - lookup complaint
+    - browse tickets
+    - find support ticket
+    - search support
+    - filter tickets
+    - query tickets
+    - search by subject
+    - find by description
+    - locate support request
+
+- intent: return_to_menu
+  examples: |
+    - return to menu
+    - go back to menu
+    - show main menu
+    - main menu
+    - back to start
+    - return to start
+    - go to main menu
+    - show menu again
+    - menu
+    - home

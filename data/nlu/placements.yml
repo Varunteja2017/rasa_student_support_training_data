@@ -1,0 +1,66 @@
+version: "3.1"
+
+nlu:
+
+# ==================================================
+# PLACEMENTS & INTERNSHIPS (6 intents)
+# ==================================================
+
+- intent: placement_statistics
+  examples: |
+    - placement statistics
+    - placement record
+    - placement data
+    - how many students placed
+    - placement percentage
+    - placement stats
+    - average package
+    - highest package
+
+- intent: placement_eligibility
+  examples: |
+    - placement eligibility
+    - placement criteria
+    - can I sit for placements
+    - placement requirements
+    - eligibility for placements
+    - minimum CGPA for placements
+    - placement rules
+
+- intent: companies_visiting
+  examples: |
+    - companies visiting cbit
+    - recruiters list
+    - which companies come to cbit
+    - list of companies
+    - companies for placements
+    - which company is coming
+    - upcoming companies
+
+- intent: internship_opportunities
+  examples: |
+    - internship opportunities
+    - summer internships
+    - internship programs
+    - how to get internship
+    - internship companies
+    - internship process
+
+- intent: placement_training
+  examples: |
+    - placement training
+    - aptitude training
+    - placement preparation
+    - training for placements
+    - soft skills training
+    - aptitude classes
+    - placement coaching
+
+- intent: placement_cell_contact
+  examples: |
+    - placement cell contact
+    - placement office details
+    - how to contact placement cell
+    - placement officer contact
+    - placement cell email
+    - placement office location

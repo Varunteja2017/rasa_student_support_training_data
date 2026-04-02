@@ -1,0 +1,282 @@
+version: "3.1"
+
+nlu:
+# Fee Related Questions
+- intent: ask_fee_structure
+  examples: |
+    - What is the fee structure?
+    - How much is the annual fee?
+    - College fees
+    - Total fees for B.Tech
+    - Tuition fees
+    - Fee details
+    - Cost of studying
+    - Semester fees
+    - MBA fee structure
+    - M.Tech fees
+    - Fee breakdown
+    - Fees for engineering course
+    - How much fees per semester
+    - Fees information
+    - What are the fees
+    - Fee per year
+    - Total cost of study
+    - Fee structure details
+    - Fees explain please
+
+- intent: ask_fee_payment_method
+  examples: |
+    - How to pay fees?
+    - Fee payment process
+    - Online fee payment
+    - Can I pay fees online?
+    - Payment methods accepted
+    - How do I submit fees?
+    - Fee payment procedure
+    - Where to pay fees?
+    - What are payment modes
+    - How to submit fee payment
+    - Payment method options
+    - Online vs offline payment
+    - Which payment gate way to use
+    - Can I pay at college
+    - Credit card payment accepted
+    - Net banking for fee payment
+    - Payment through challan
+    - How to make payment
+    - Payment options available
+    - Tell me payment methods
+
+- intent: ask_fee_receipt
+  examples: |
+    - How to get fee receipt?
+    - Fee receipt not generated
+    - Where is my fee receipt?
+    - Download fee receipt
+    - Problem with fee receipt
+    - Fee receipt not showing
+    - Need my payment receipt
+    - Fee receipt not generated
+    - Payment receipt issue
+    - Receipt not showing
+    - I paid but no receipt
+    - Cannot download receipt
+    - Fee receipt problem
+    - Receipt not available
+    - Where is my receipt
+    - How to get payment receipt
+    - Fee payment receipt missing
+
+- intent: ask_fee_refund
+  examples: |
+    - Fee refund policy
+    - Can I get refund?
+    - How to get my fees back?
+    - Refund procedure
+    - Fee reimbursement
+    - Will I get money back?
+    - Refund rules
+    - Refund process how long
+    - Can I claim refund
+    - Refund time period
+    - Money back policy
+    - Withdrawal refund process
+    - How to apply for refund
+    - Refund eligibility criteria
+    - Refund amount details
+    - Can fees be refunded
+    - Partial refund policy
+    - Full refund possible
+    - When will I get refund
+    - Refund status check
+
+- intent: ask_installment_payment
+  examples: |
+    - Can I pay fees in installments?
+    - Installment facility
+    - Pay fees in parts
+    - Split payment option
+    - Partial fee payment
+    - EMI for fees
+    - How many installments available
+    - Installment payment plan
+    - Can I pay half fees now
+    - Pay fees in two parts
+    - Installment schedule
+    - Monthly payment option
+    - Are installments allowed
+    - How many EMIs can I take
+    - Installment interest charges
+    - Easy payment options
+    - Pay later facility
+    - Flexible payment schedule
+    - Pay fees gradually
+    - Installment period details
+
+- intent: ask_late_fee_fine
+  examples: |
+    - Late fee payment penalty
+    - Fine for delayed payment
+    - What if I miss fee deadline?
+    - Late payment charges
+    - Penalty for late fees
+    - Fine amount
+    - How much fine for late payment
+    - Late submission penalty
+    - Will fees increase if late
+    - Extra charges for delayed payment
+    - Penalty amount how much
+    - Is there fine for overdue fees
+    - Late fee percentage
+    - Consequences of late payment
+    - Can I pay without penalty
+    - Grace period for fee payment
+    - What happens if I pay late
+    - Fine calculation method
+    - Penalty reduce possible
+    - When does late fee apply
+
+- intent: ask_scholarship_fee
+  examples: |
+    - Are scholarships available?
+    - Fee concession
+    - Financial assistance
+    - Scholarship details
+    - Fee waiver
+    - Government scholarship
+    - Merit scholarship
+    - How to apply for scholarship?
+    - Scholarship eligibility criteria
+    - What are the scholarships offered
+    - How to get scholarship
+    - Scholarship application process
+    - Merit based scholarship
+    - Need based scholarship available
+    - Scholarship waiver amount
+    - Scholarship percentage
+    - Can I get fee waiver
+    - SC/ST scholarship details
+    - Minority scholarship available
+    - OBC scholarship details
+
+- intent: tuition_fee
+  examples: |
+    - tuition fee amount
+    - semester fee
+    - how much is tuition fee
+    - semester wise fee
+    - tuition fee details
+    - yearly tuition fee
+    - per semester tuition cost
+    - tuition charges per year
+    - educational fee details
+    - subject wise tuition fee
+    - year wise fee breakdown
+    - semester 1 fee amount
+    - 4 year total tuition
+    - first year tuition cost
+    - tuition fee schedule
+    - course wise tuition fee
+    - lab fee details
+    - library fee included
+    - registration tuition fee
+    - renewal tuition fee
+
+- intent: hostel_fee
+  examples: |
+    - hostel fee details
+    - mess fee
+    - hostel charges
+    - hostel and mess fee
+    - how much is hostel fee
+    - hostel accommodation fee
+    - What is mess charges
+    - Hostel room fee
+    - Mess charges per month
+    - Hostel deposit required
+    - Security deposit hostel
+    - Hostel damage charges
+    - Electricity charges hostel
+    - Maintenance fee hostel
+    - Caution money hostel
+    - Non-resident fee
+    - Day scholar fee
+    - Hostel facility charges
+    - Annual hostel fee
+    - Hostel fee payment
+    - When to pay hostel fee
+
+- intent: fee_payment_deadline
+  examples: |
+    - fee deadline
+    - last date for fee payment
+    - when should I pay fees
+    - fee payment last date
+    - deadline for semester fee
+    - last date for 6th sem fee
+    - when is fee due
+    - What is the fee due date
+    - By when should fees be paid
+    - Payment deadline date
+    - Fee submission deadline
+    - Before what date pay fees
+    - Fee payment cut off date
+    - Days left to pay fee
+    - Fee payment window
+    - Till when can I pay
+    - Extension for fee payment
+    - Early payment discount available
+    - Advance payment possible
+    - Next semester fee deadline
+
+- intent: fee_payment_failure
+  examples: |
+    - fee payment failed
+    - transaction error
+    - payment not successful
+    - fee payment issue
+    - transaction failed while paying fee
+    - payment gateway error
+
+
+
+- intent: ask_fee_paid_not_updated
+  examples: |
+    - I paid fees but it's not updated
+    - Payment done but not reflected
+    - Fee not updated in system
+    - Paid fees but no confirmation
+    - Payment not updated in ERP
+    - Money deducted but fee not updated
+    - Payment shows but fee not paid
+    - Transaction successful but fee not reflecting
+    - Money deducted no fee update
+    - Payment done no receipt
+    - Fee payment not showing
+    - I paid fees but hall ticket is not generated
+    - Paid fee but ticket not generated
+    - Fee paid but exam ticket not ready
+    - Payment done but no exam ticket
+    - Fee received but no hall ticket
+    - Fees updated but no ticket
+    - Fee confirmed but ticket missing
+    - Fee payment done ticket issue
+    - Paid but can't get ticket
+    - Money paid ticket not generated
+    - Payment done but ticket problem
+    - Fee updated but ticket not showing
+
+- intent: ask_payment_failed_money_deducted
+  examples: |
+    - Payment failed but money deducted
+    - Transaction failed money taken
+    - Payment gateway error money deducted
+    - Money deducted payment didn't go through
+    - Charged money but payment failed
+    - Money cut off but payment failed
+    - Transaction reversed money not returned
+    - Money missing after failed payment
+    - Deducted but transaction failed
+    - Card charged but payment not successful
+    - Amount withdrawn payment failed
+    - Refund of failed payment

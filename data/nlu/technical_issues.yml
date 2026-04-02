@@ -1,0 +1,61 @@
+version: "3.1"
+
+nlu:
+# Technical Issues and Portal Access
+- intent: ask_erp_login
+  examples: |
+    - How to login to ERP?
+    - ERP access
+    - Student portal login
+    - Can't login to ERP
+    - ERP password reset
+    - Forgot ERP password
+    - ERP not opening
+    - technical issues with login
+    - help with technical problem
+    - having technical difficulty
+    - technical support needed for ERP
+    - ERP credentials
+    - First time ERP login
+    - ERP login troubleshooting
+    - ERP mobile access
+    - Reset ERP credentials
+    - ERP portal problem
+    - Cannot access student portal
+
+- intent: ask_lms_access
+  examples: |
+    - LMS login issue
+    - Can't access LMS
+    - Learning Management System
+    - LMS password
+    - How to use LMS?
+    - LMS not working
+    - Material not showing in LMS
+
+- intent: ask_email_access
+  examples: |
+    - College email
+    - Student email ID
+    - How to access college email?
+    - Outlook login
+    - Email not working
+    - Reset email password
+
+- intent: ask_id_card
+  examples: |
+    - ID card issue
+    - Lost my ID card
+    - How to get ID card?
+    - Duplicate ID card
+    - ID card not received
+    - Student ID card
+
+- intent: ask_password_reset
+  examples: |
+    - Reset my password
+    - Forgot password
+    - Password not working
+    - Change password
+    - How to reset password?
+    - Password recovery

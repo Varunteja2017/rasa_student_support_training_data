@@ -1,0 +1,59 @@
+version: "3.1"
+
+nlu:
+
+# ==================================================
+# HOSTEL (5 intents)
+# ==================================================
+
+- intent: hostel_admission
+  examples: |
+    - hostel admission
+    - apply for hostel
+    - how to get hostel
+    - hostel application
+    - hostel seat allotment
+    - hostel registration
+    - hostel booking
+    - how to apply for hostel
+
+- intent: hostel_rules
+  examples: |
+    - hostel rules
+    - hostel timings
+    - hostel regulations
+    - hostel in time
+    - hostel out time
+    - hostel rules and regulations
+    - hostel gate timings
+    - hostel curfew time
+
+- intent: hostel_room_allotment
+  examples: |
+    - room allotment
+    - hostel room details
+    - which room am I allotted
+    - hostel room number
+    - room allocation
+    - hostel room change
+    - change hostel room
+
+- intent: hostel_mess
+  examples: |
+    - mess food details
+    - hostel mess menu
+    - mess timings
+    - mess food
+    - hostel food quality
+    - mess menu today
+    - breakfast lunch dinner timings
+
+- intent: hostel_complaint
+  examples: |
+    - hostel complaint
+    - hostel issue
+    - hostel problem
+    - complain about hostel
+    - hostel maintenance issue
+    - room cleaning issue
+    - electricity problem in hostel

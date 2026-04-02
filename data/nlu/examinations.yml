@@ -1,0 +1,336 @@
+version: "3.1"
+
+nlu:
+# Examination Related Questions
+- intent: ask_exam_schedule
+  examples: |
+    - When are the exams?
+    - Exam timetable
+    - Exam schedule
+    - Semester exam dates
+    - Mid exam dates
+    - End sem exam schedule
+    - When is my exam?
+    - Examination calendar
+    - Exam date announcement
+    - What's the exam schedule?
+    - Exam time table please
+    - When do exams start?
+    - Mid-term exam schedule
+    - Final exam dates
+    - Semester exam timing
+    - Exam calendar 2026
+    - How to check exam schedule
+    - Where's the exam schedule
+    - Quiz schedule date
+    - Class test timing
+
+- intent: ask_hall_ticket
+  examples: |
+    - How to download hall ticket?
+    - Hall ticket not showing
+    - Where is my hall ticket?
+    - Exam admit card
+    - Hall ticket issue
+    - Can't download hall ticket
+    - Hall ticket problem
+    - My hall ticket is not generating
+    - Hall ticket not generated
+    - Hall ticket generation issue
+    - Why is my hall ticket not generated
+    - I paid fees but hall ticket is not generating
+    - Hall ticket not visible
+    - Can't see my hall ticket
+    - Hall ticket download problem
+    - Where to download admit card
+    - My admit card is missing
+    - Exam hall ticket not ready
+    - Hall ticket error
+    - Hall ticket loading issue
+    - How to get hall ticket
+    - Hall ticket download failed
+    - Hall ticket not appearing
+    - How long does hall ticket take
+    - When will hall ticket be generated
+    - Hall ticket status
+    - Check hall ticket status
+    - Halltiket issue
+    - Haltiket not showing
+    - Hall ticket generation delay
+    - Hall ticket generation problem
+    - My hall ticket hasn't been generated yet
+    - I need my hall ticket
+    - Hall ticket is not ready
+    - Hall ticket not available
+    - Can I download my admit card
+    - Exam admit card issue
+    - Admit card generation
+
+
+- intent: ask_exam_results
+  examples: |
+    - When will results come?
+    - How to check results?
+    - Result date
+    - Exam results
+    - Where to see my results?
+    - Result announcement
+    - Result not showing
+    - Check exam results
+    - When will my results be announced
+    - How to view results
+    - Results not visible
+    - Where to check results
+    - Result publication date
+    - When are results released
+    - Exam marks announcement
+    - Result declaration date
+    - How long for results
+    - Results delayed
+    - Check my exam marks
+
+- intent: ask_revaluation
+  examples: |
+    - How to apply for revaluation?
+    - Revaluation process
+    - Recounting
+    - Challenge valuation
+    - Revaluation fees
+    - Apply for recounting
+    - How much time for revaluation?
+    - Marks recounting procedure
+    - Paper revaluation
+    - Revaluation application steps
+    - Can I request revaluation
+    - Revaluation deadline
+    - Cost of revaluation
+    - Challenge marks procedure
+    - Recheck marks
+    - Verification of marks
+    - Paper verification process
+    - Revaluation eligibility criteria
+    - How long does revaluation take
+    - Will revaluation increase marks
+    - Revaluation result date
+    - Can marks decrease in revaluation
+    - Revaluation copy request
+    - How revaluation works
+    - Revaluation success rate
+
+- intent: ask_supplementary_exam
+  examples: |
+    - Supplementary exam
+    - Failed in exam
+    - Supply exam dates
+    - Backlog exam
+    - How to apply for supply?
+    - Supplementary application
+    - Reappear exam
+    - Failed subject exam date
+    - Compartmental exam
+    - When is supplementary exam
+    - How to apply for backlog
+    - Resit exam
+    - Supply exam eligibility
+    - Failed paper
+    - Improvement exam
+    - Second attempt exam
+    - Makeup exam
+    - Supply exam registration
+    - When can I give supplementary
+    - Backlog exam dates
+    - How many attempts allowed
+    - Improvement exam rules
+    - Backlog registration deadline
+    - Supply exam fees
+    - Failed course retake
+
+- intent: ask_exam_attendance
+  examples: |
+    - Minimum attendance for exams
+    - Attendance shortage
+    - Can I write exam with low attendance?
+    - Attendance requirement
+    - Short attendance problem
+    - Attendance criteria for exams
+    - Low attendance exam eligibility
+    - Attendance cutoff
+    - Will I be allowed to sit exam
+    - Attendance percentage needed
+    - Short on attendance what to do
+    - Attendance exemption
+    - Can I write with 50% attendance
+    - Attendance eligibility check
+    - Attenance proxy allowed
+    - Attendance policy
+    - Medical exemption attendance
+    - Can I appear without attendance
+    - How attendance is calculated
+    - Attendance requirements for graduation
+    - Shortage compensation possible
+    - Re-attendance allowed
+    - Online class attendance counts
+    - Lab attendance requirement
+    - Tutorial attendance counted
+
+- intent: ask_exam_rules
+  examples: |
+    - Exam hall rules
+    - What to bring to exam?
+    - Exam regulations
+    - Exam conduct rules
+    - Mobile phones in exam?
+    - Exam guidelines
+    - Exam hall code of conduct
+    - Can I bring calculator to exam
+    - What material allowed in exam
+    - Exam instructions
+    - What is prohibited in exam
+    - Can I use dictionary
+    - Exam general instructions
+    - Things not allowed in exam
+    - Exam protocol
+    - Hall ticket required
+    - What to carry to exam center
+    - Can I bring pen brands
+    - Rough sheets provided
+    - Pencil or pen which to use
+    - Can I bring water bottle
+    - What if I forget hall ticket
+    - Early arrival at exam center
+    - Late entry to exam hall
+    - Question paper distribution time
+
+- intent: internal_marks
+  examples: |
+    - internal marks details
+    - mid marks issue
+    - how are internal marks calculated
+    - mid exam marks
+    - internal assessment marks
+    - assignment marks
+    - check my internal marks
+    - internal marks not visible
+    - where to see internal marks
+    - internal evaluation marks
+    - CA marks
+    - continuous assessment marks
+    - internal component marks
+    - mid-sem marks
+    - how internal marks given
+    - internal score
+    - marks for assignments and tests
+    - Component 1 marks
+    - Sessional marks details
+    - Evaluator marks
+    - How to see internal marks
+    - Internal marks date display
+    - Internal marks dispute
+    - Quiz marks included
+    - Attendance marks calculation
+
+- intent: external_marks
+  examples: |
+    - external marks
+    - semester results
+    - end sem results
+    - final exam marks
+    - external examination results
+    - external component marks
+    - final exam results
+    - semester end exam marks
+    - how to check external marks
+    - external marks not showing
+    - check semester results
+    - final sem marks
+    - semester results date
+    - external assessment marks
+    - end sem examination score
+    - main exam marks
+    - practical exam marks
+    - total marks breakdown
+    - Component 2 marks
+    - Theory exam marks
+    - Practical exam results
+    - Marks conversion to grades
+    - Aggregate marks calculation
+    - CGPA from marks
+    - Marks improvement possible
+    - Grade calculation from marks
+
+- intent: exam_registration
+  examples: |
+    - exam registration issue
+    - register for exams
+    - how to register for semester exam
+    - exam form
+    - examination form filling
+    - enroll for exams
+    - how do I register for exams
+    - exam registration process
+    - when to register for exams
+    - exam enrollment
+    - exam sign up
+    - registration deadline for exams
+    - fill exam form
+    - exam form submission
+    - register for end sem
+    - registration portal
+    - online exam registration
+    - exam registration open when
+    - how to register for practical
+    - mandatory registration
+    - Can I register late
+    - Registration fee charges
+    - Subject registration for exam
+    - Multiple exam registration
+    - Drop exam option available
+    - fill exam form
+    - exam form submission
+    - register for end sem
+    - registration portal
+    - online exam registration
+
+- intent: malpractice_rules
+  examples: |
+    - exam malpractice rules
+    - copying punishment
+    - what happens if caught cheating
+    - malpractice penalty
+    - unfair means in exam
+    - cheating consequences
+    - exam misconduct
+    - what is not allowed in exam
+    - academic integrity policy
+    - punishment for cheating
+    - exam misconduct penalty
+    - disciplinary action
+    - exam disqualification
+    - consequences of copying
+    - what about talking in exam
+
+- intent: exam_absence
+  examples: |
+    - absent for exam
+    - missed exam
+    - could not attend exam
+    - absence in examination
+    - medical leave during exam
+    - I missed my exam
+    - what if I skip exam
+    - absent in exam
+    - couldn't give exam
+    - exam absence policy
+    - absent from exam
+    - cannot attend exam
+    - emergency during exam
+    - medical emergency exam
+    - documented absence
+
+- intent: results_delay
+  examples: |
+    - results delayed
+    - result not announced
+    - when will results come
+    - why results are late
+    - result declaration delayed

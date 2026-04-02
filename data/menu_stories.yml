@@ -1,0 +1,53 @@
+version: "3.1"
+
+stories:
+  - story: show main menu
+    steps:
+      - intent: choose_menu_root
+      - action: utter_menu_root
+
+  - story: user picks admissions
+    steps:
+      - intent: choose_admissions
+      - action: utter_admissions_menu
+
+  - story: user picks fees
+    steps:
+      - intent: choose_fees
+      - action: utter_fees_menu
+
+  - story: user picks exams
+    steps:
+      - intent: choose_exams
+      - action: utter_exams_menu
+
+  - story: user picks memos
+    steps:
+      - intent: choose_memos
+      - action: utter_memos_menu
+
+  - story: user picks services
+    steps:
+      - intent: choose_services
+      - action: utter_services_menu
+
+  - story: user picks counters
+    steps:
+      - intent: choose_counters
+      - action: utter_counters_menu
+
+  - story: user picks placements
+    steps:
+      - intent: choose_placements
+      - action: utter_placements_menu
+
+  - story: user picks tickets
+    steps:
+      - intent: choose_tickets
+      - action: utter_tickets_menu
+
+  - story: user picks campus info
+    steps:
+      - intent: choose_campus_info
+      - action: utter_campus_menu
+

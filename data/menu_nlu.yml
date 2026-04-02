@@ -1,0 +1,75 @@
+version: "3.1"
+
+nlu:
+  - intent: choose_menu_root
+    examples: |
+      - show menu
+      - menu
+      - main menu
+      - help
+      - show options
+
+  - intent: choose_admissions
+    examples: |
+      - Admissions
+      - 1
+      - admissions & academic
+      - admission questions
+
+  - intent: choose_fees
+    examples: |
+      - Fees
+      - 2
+      - fees & payments
+      - how to pay fees
+
+  - intent: choose_exams
+    examples: |
+      - Exams
+      - 3
+      - exams & hall tickets
+
+  - intent: choose_memos
+    examples: |
+      - Memos
+      - 4
+      - mark sheets
+
+  - intent: choose_services
+    examples: |
+      - Student Services
+      - 5
+      - services
+
+  - intent: choose_counters
+    examples: |
+      - Administration Counters
+      - 6
+      - counters
+
+  - intent: choose_placements
+    examples: |
+      - Placements
+      - 7
+      - internships
+
+  - intent: choose_tickets
+    examples: |
+      - Ticket Support
+      - 8
+      - raise a ticket
+      - support ticket
+
+  - intent: choose_campus_info
+    examples: |
+      - Campus Info
+      - 9
+      - general campus information
+
+  - intent: ask_other
+    examples: |
+      - I want to know about hostel fees
+      - how do I apply for admission
+      - when are the exams
+      - my hall ticket not generated
+      - how to pay fees via epas

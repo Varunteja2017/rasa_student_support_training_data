@@ -1,0 +1,45 @@
+version: "3.1"
+
+nlu:
+
+# ==================================================
+# PORTAL & LMS (4 intents)
+# ==================================================
+
+- intent: lms_login_issue
+  examples: |
+    - lms login failed
+    - portal not opening
+    - cannot login to lms
+    - lms not working
+    - portal login issue
+    - erp login failed
+    - cannot access portal
+    - forgot lms password
+
+- intent: attendance_not_updated
+  examples: |
+    - attendance not updated
+    - attendance missing
+    - my attendance not showing
+    - attendance not visible
+    - attendance issue
+    - attendance not reflected
+
+- intent: marks_not_visible
+  examples: |
+    - marks not showing
+    - internal marks missing
+    - cannot see my marks
+    - marks not visible
+    - mid marks not updated
+    - results not showing
+
+- intent: profile_update_issue
+  examples: |
+    - cannot update profile
+    - profile edit problem
+    - profile update failed
+    - unable to change profile
+    - profile modification issue
+    - edit profile not working

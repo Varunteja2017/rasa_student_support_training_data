@@ -1,0 +1,74 @@
+version: "3.1"
+
+nlu:
+
+# ==================================================
+# ACADEMICS (7 intents)
+# ==================================================
+
+- intent: academic_calendar
+  examples: |
+    - academic calendar
+    - college schedule
+    - semester dates
+    - academic year schedule
+    - when does semester start
+    - academic timetable
+    - college working days
+
+- intent: attendance_requirement
+  examples: |
+    - attendance percentage
+    - minimum attendance
+    - how much attendance needed
+    - attendance criteria
+    - attendance shortage
+    - low attendance issue
+    - required attendance percentage
+
+- intent: syllabus_query
+  examples: |
+    - syllabus for cse
+    - subject syllabus
+    - course syllabus
+    - syllabus for data structures
+    - where to find syllabus
+    - syllabus download
+    - subject topics
+
+- intent: credits_system
+  examples: |
+    - credit system
+    - credit requirements
+    - how many credits needed
+    - credit points
+    - credits for graduation
+    - credit system explanation
+
+- intent: electives_info
+  examples: |
+    - elective subjects
+    - elective selection
+    - which electives to choose
+    - elective options
+    - professional electives
+    - open electives
+    - elective registration
+
+- intent: faculty_contact
+  examples: |
+    - faculty contact details
+    - professor email
+    - how to contact faculty
+    - faculty phone number
+    - teacher contact information
+    - HOD contact
+
+- intent: lab_schedule
+  examples: |
+    - lab timings
+    - practical schedule
+    - lab sessions
+    - lab timetable
+    - practical class timings
+    - when is my lab

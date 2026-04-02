@@ -1,0 +1,245 @@
+version: "3.1"
+
+nlu:
+# Admissions Related Questions
+- intent: ask_admission_procedure
+  examples: |
+    - How do I apply for admission?
+    - Admission procedure
+    - How to get admission in CBIT?
+    - Application process for CBIT
+    - Steps for admission
+    - How can I join CBIT?
+    - Admission process details
+    - Tell me about admission procedure
+    - How to apply for B.Tech?
+    - UG admission process
+    - Admission step by step
+    - PG admission how to apply
+    - Lateral entry admission
+    - Direct admission possible
+    - What is the admission path
+
+- intent: ask_eligibility_criteria
+  examples: |
+    - What is the eligibility criteria?
+    - Am I eligible for admission?
+    - Eligibility for B.Tech
+    - Minimum marks required
+    - Qualification needed for admission
+    - Eligibility requirements
+    - Who can apply for CBIT?
+    - Entry requirements
+    - Age limit for admission
+    - Board exam score needed
+    - Cut off marks admission
+    - Category specific eligibility
+    - OBC eligibility criteria
+    - SC/ST eligibility
+    - Women category eligibility
+
+- intent: ask_entrance_exam
+  examples: |
+    - Which entrance exam is required?
+    - Do I need EAMCET?
+    - Entrance test for CBIT
+    - TGEAPCET information
+    - JEE accepted?
+    - What exam should I give?
+    - Entrance exam details
+    - TGPGCET for M.Tech
+    - Entrance exam dates
+    - Exam pattern details
+    - Exam syllabus information
+    - Registration for entrance exam
+    - Can I appear multiple times
+    - Exam admit card details
+    - Score validity period
+
+- intent: ask_admission_dates
+  examples: |
+    - When do admissions start?
+    - Last date for admission
+    - Admission deadline
+    - Application dates
+    - When can I apply?
+    - Admission schedule
+    - Important admission dates
+    - Counselling dates
+    - when do admissions start this year
+    - admission dates please
+    - tell me about admissions timeline
+    - admissions when can I apply
+    - when is admissions open
+
+- intent: ask_courses_offered
+  examples: |
+    - What courses are available?
+    - Which branches are offered?
+    - List of programs
+    - Available B.Tech courses
+    - What can I study at CBIT?
+    - Engineering branches
+    - UG and PG programs
+    - MBA and MCA available?
+    - What programs does CBIT offer
+    - Courses offered at CBIT
+    - B.Tech specializations
+    - Available specializations
+    - Engineering programs
+    - What can I major in
+    - List of branches in CBIT
+    - Undergraduate programs
+    - Postgraduate programs
+    - Available degree programs
+    - Courses in CBIT college
+    - What subjects can I take
+
+- intent: ask_seat_availability
+  examples: |
+    - How many seats are available?
+    - Seat intake
+    - Number of seats in CSE
+    - Seats in each branch
+    - What is the intake capacity?
+    - Available seats
+    - Seats per specialization
+    - Male/female seat breakdown
+    - Reserved seats information
+    - General category seats
+    - Total seat strength
+    - Hostel seats availability
+    - Dormitory capacity
+    - Seat matrix current
+
+- intent: ask_cutoff_ranks
+  examples: |
+    - What is the cutoff rank?
+    - Previous year ranks
+    - CSE cutoff
+    - Rank required for admission
+    - Last year closing ranks
+    - Cutoff for different branches
+    - EAMCET rank needed
+    - Expected cutoff this year
+    - Cutoff trend analysis
+    - Previous 5 years cutoff
+    - Cutoff mark vs rank
+    - General category cutoff
+    - Women category cutoff
+    - OBC category cutoff
+    - Branch wise cutoff comparison
+
+- intent: admission_eamcet
+  examples: |
+    - eamcet admission process
+    - eamcet cutoff for cbit
+    - tgeamcet admission
+    - eamcet counselling
+    - how to apply through eamcet
+
+- intent: admission_management_quota
+  examples: |
+    - management quota admission
+    - mq seats in cbit
+    - management seats
+    - direct admission
+    - management quota fee
+    - MQ admission process
+    - MQ fees how much
+    - Are MQ seats available
+    - Direct entry through MQ
+    - MQ eligibility
+    - MQ selection criteria
+    - Can I get MQ seat
+    - MQ vs merit admission
+    - MQ admission document
+    - MQ counselling required
+
+- intent: admission_spot
+  examples: |
+    - spot admission details
+    - spot round in cbit
+    - is there spot admission
+    - spot counselling
+    - is spot round available
+    - spot admission criteria
+    - when is spot counselling
+    - how to participate spot round
+    - spot seat availability
+    - spot admission eligibility
+    - multiple spot rounds
+    - spot round registration
+    - choice filling spot round
+    - spot round results
+    - spot seat allotment
+
+- intent: admission_documents
+  examples: |
+    - documents required for admission
+    - certificates for admission
+    - what documents to bring
+    - admission documents list
+    - certificates needed
+    - document verification process
+    - original certificates needed
+    - how many copies required
+    - category documents needed
+    - caste certificate details
+    - conduct certificate
+    - birth certificate needed
+    - identity proof requirements
+    - documents checklist
+    - lost certificate what to do
+
+- intent: admission_fee_payment
+  examples: |
+    - admission fee payment
+    - initial admission fee
+    - how to pay admission fee
+    - admission fee amount
+    - first payment for admission
+    - admission fee deadline
+    - fee payment portal
+    - can I pay online
+    - installments for admission fee
+    - payment failed admission
+    - fee receipt after admission
+    - admission fee breakdown
+    - when to pay admission fee
+    - admission fee waiver
+    - fee payment confirmation
+
+- intent: admission_cancellation
+  examples: |
+    - cancel admission
+    - admission withdrawal
+    - withdraw from college
+    - leave admission
+    - cancel my seat
+    - get admission back
+    - withdraw application
+    - cancel after acceptance
+    - refund after cancellation
+    - can I defer admission
+    - withdraw and reapply
+    - cancellation process
+    - seat cancellation deadline
+    - cancellation fees applicable
+    - consequences of cancellation
+
+# - intent: admission_branch_change
+#   examples: |
+#     - branch change process
+#     - change department after joining
+#     - can I change branch
+#     - branch sliding
+#     - shift to another branch
+
+- intent: admission_lateral_entry
+  examples: |
+    - lateral entry admission
+    - ecet admission details
+    - direct second year admission
+    - diploma to btech
+    - lateral entry process

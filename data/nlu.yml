@@ -1,0 +1,109 @@
+version: "3.1"
+
+# Main NLU file for CBIT Student Support Chatbot
+# This file imports all category-specific NLU files
+# Total: 150+ questions across 10 categories
+
+# Note: All NLU training data is now organized in separate category files:
+# - general.yml: Greetings and basic conversations (10 questions)
+# - admissions.yml: Admission related queries (7 intents, ~50 questions)
+# - fees.yml: Fee structure, payment, receipts (7 intents, ~40 questions)
+# - documents.yml: Certificates and document issuance (8 intents, ~40 questions)
+# - examinations.yml: Exams, results, hall tickets (7 intents, ~40 questions)
+# - academic.yml: Classes, attendance, syllabus (8 intents, ~50 questions)
+# - facilities.yml: Library, hostel, transport (7 intents, ~35 questions)
+# - placements.yml: Campus placements, training (6 intents, ~35 questions)
+# - contact.yml: Contact information (6 intents, ~25 questions)
+# - technical_issues.yml: ERP, LMS, password issues (5 intents, ~25 questions)
+# - grievances.yml: Complaints and grievances (4 intents, ~20 questions)
+
+# All training data files are loaded by Rasa automatically from the data/nlu/ directory
+
+# ==================================================
+# REGEX PATTERNS FOR COMMON FORMATS
+# ==================================================
+
+regex:
+  - name: ticket_id
+    pattern: "[TKT|TICKET]-?[0-9]{4,8}"
+  - name: student_id
+    pattern: "[0-9]{8,10}"
+
+nlu:
+
+# ==================================================
+# TRANSLATION-STYLE EXAMPLES (for multilingual)
+# ==================================================
+# These examples handle common translation patterns from Telugu/Hindi
+
+- intent: ask_fee_structure
+  examples: |
+    - fees details give me
+    - fee structure tell me
+    - fees information provide
+    - how much amount is the fee
+    - fee amount is how much
+    - what is fee please say
+
+- intent: ask_exam_schedule
+  examples: |
+    - exam time table tell me
+    - exam dates when are
+    - schedule when please say
+    - exams when to start
+    - exam date inform
+
+- intent: ask_hall_ticket
+  examples: |
+    - hall ticket generate do
+    - admit card show me
+    - how to get the admit card
+    - admit card check do
+    - hall ticket ready is
+
+- intent: ask_exam_results
+  examples: |
+    - result when come will
+    - marks when announce
+    - result check do how
+    - results display when
+    - marks publish when
+
+- intent: internal_marks
+  examples: |
+    - internal marks tell me
+    - mid marks show do
+    - continuous assessment marks give
+    - marks check how
+
+- intent: ask_course_completion_certificate
+  examples: |
+    - certificate issue how
+    - certificate get to do what
+    - certificate completion can I get
+    - how certificate is given
+
+- intent: fallback
+  examples: |
+    - asdfghj
+    - random text
+    - something else
+
+- intent: faq_helpful
+  examples: |
+    - 👍 Yes, Helpful
+    - yes helpful
+    - that was helpful
+    - thanks that helped
+    - yes this is helpful
+    - helpful
+    - /faq_helpful
+
+- intent: faq_not_helpful
+  examples: |
+    - 👎 Not Helpful
+    - not helpful
+    - didn't help
+    - not what I needed
+    - no that's not helpful
+    - /faq_not_helpful

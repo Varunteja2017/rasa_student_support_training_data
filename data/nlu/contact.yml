@@ -1,0 +1,65 @@
+version: "3.1"
+
+nlu:
+# Contact and Location Information
+- intent: ask_college_address
+  examples: |
+    - College address
+    - Where is CBIT located?
+    - CBIT location
+    - How to reach CBIT?
+    - College address details
+    - Directions to college
+
+- intent: ask_contact_details
+  examples: |
+    - College phone number
+    - Contact details
+    - Email address
+    - How to contact college?
+    - Admin contact number
+    - Admission enquiry number
+    - Office phone number
+    - what are contact information
+    - teacher contact information
+    - provide contact details
+    - need contact information
+    - get contact information
+    - contact me at
+    - how to reach contact
+    - provide contact for admission
+    - principal office number
+    - department contact details
+    - emergency contact
+    - registrar contact
+
+- intent: ask_department_contact
+  examples: |
+    - CSE department contact
+    - HOD contact number
+    - Department office
+    - Faculty contact details
+    - How to contact department?
+
+- intent: ask_principal_contact
+  examples: |
+    - Principal contact
+    - Principal email
+    - How to meet principal?
+    - Principal office
+
+- intent: ask_office_timings
+  examples: |
+    - Office timings
+    - When is office open?
+    - Admin office hours
+    - Working hours
+    - College timing
+
+- intent: ask_website
+  examples: |
+    - College website
+    - Official website
+    - CBIT website link
+    - Online portal
+    - ERP login

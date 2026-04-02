@@ -1,0 +1,28 @@
+version: "3.1"
+
+nlu:
+
+- intent: ask_anti_ragging
+  examples: |
+    - Anti ragging committee
+    - Report ragging
+    - Ragging complaint
+    - Anti ragging helpline
+    - Is ragging allowed?
+    - Ragging helpdesk
+
+- intent: ask_student_grievance
+  examples: |
+    - Student grievance cell
+    - Where to complain?
+    - Grievance redressal
+    - Student complaints
+    - Grievance portal
+
+- intent: fallback
+  examples: |
+    - I don't understand
+    - Can you help?
+    - What can you do?
+    - Help me
+    - I have a different question
