@@ -52,7 +52,7 @@ rules:
   - intent: ask_custom_question
   - action: action_ask_custom_question
 
-- rule: Handle admission queries with LLM and show return option
+- rule: Handle admission queries with TIER 1 Groq NLP
   steps:
   - or:
     - intent: ask_admission_procedure
@@ -62,12 +62,13 @@ rules:
   - action: action_llm_response
   - action: action_return_to_menu
 
-- rule: Handle fee queries with LLM and show return option
+- rule: Handle fee queries with TIER 1 Groq NLP
   steps:
   - or:
     - intent: ask_fee_structure
     - intent: ask_fee_payment
     - intent: ask_fee_payment_method
+    - intent: ask_fee_payment_deadline
     - intent: ask_fee_receipt
     - intent: ask_fee_refund
     - intent: ask_installment_payment
@@ -79,7 +80,7 @@ rules:
   - action: action_llm_response
   - action: action_return_to_menu
 
-- rule: Handle document queries with LLM and show return option
+- rule: Handle document queries with TIER 1 Groq NLP
   steps:
   - or:
     - intent: ask_bonafide_certificate
@@ -89,7 +90,7 @@ rules:
   - action: action_llm_response
   - action: action_return_to_menu
 
-- rule: Handle examination queries with LLM and show return option
+- rule: Handle examination queries with TIER 1 Groq NLP
   steps:
   - or:
     - intent: ask_exam_schedule
@@ -102,7 +103,7 @@ rules:
   - action: action_llm_response
   - action: action_return_to_menu
 
-- rule: Handle contact queries with LLM and show return option
+- rule: Handle contact queries with TIER 1 Groq NLP
   steps:
   - or:
     - intent: ask_contact_info
@@ -110,7 +111,7 @@ rules:
   - action: action_llm_response
   - action: action_return_to_menu
 
-- rule: Handle technical issues with LLM and show return option
+- rule: Handle technical issues with TIER 1 Groq NLP
   steps:
   - or:
     - intent: technical_issue_erp
@@ -119,7 +120,7 @@ rules:
   - action: action_llm_response
   - action: action_return_to_menu
 
-- rule: Handle grievances with LLM and show return option
+- rule: Handle grievances with TIER 1 Groq NLP
   steps:
   - or:
     - intent: file_grievance
@@ -127,7 +128,7 @@ rules:
   - action: action_llm_response
   - action: action_return_to_menu
 
-- rule: Handle college info with LLM and show return option
+- rule: Handle college info with TIER 1 Groq NLP
   steps:
   - intent: ask_college_info
   - action: action_llm_response

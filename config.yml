@@ -27,4 +27,10 @@ policies:
     max_history: 5
     epochs: 100
 
+# Validation settings
+# Note: Utterances are dynamically loaded by action_llm_response, 
+# so unused utterance warnings are expected and harmless
+validate:
+  skip_warnings: true
+
 assistant_id: 20260107-184610-dyadic-waterfall

@@ -26,15 +26,55 @@ def load_responses_from_domain():
 def get_intent_response_text(intent: str, responses: Dict) -> str:
     """
     Get response text for a specific intent from domain.yml responses
+    Strips 'ask_' prefix from intent names (intents are ask_bonafide_certificate, responses are utter_bonafide_certificate)
     """
-    # Map intent names to response names (utter_<intent_name>)
-    response_key = f"utter_{intent}"
+    # Strip 'ask_' prefix from intent if present
+    response_intent = intent.replace('ask_', '') if intent.startswith('ask_') else intent
+    response_key = f"utter_{response_intent}"
     
     response_data = responses.get(response_key, [])
     if response_data and len(response_data) > 0:
         return response_data[0].get('text', '')
     
     return ""
+
+def clean_markdown_from_response(text: str) -> str:
+    """
+    Remove ALL markdown formatting characters from response text.
+    This ensures 100% plain text output regardless of what Groq generates.
+    """
+    import re
+    
+    # Remove bold markdown: **text** or __text__
+    text = re.sub(r'\*\*(.+?)\*\*', r'\1', text)
+    text = re.sub(r'__(.+?)__', r'\1', text)
+    
+    # Remove italic markdown: *text* or _text_
+    text = re.sub(r'\*(.+?)\*', r'\1', text)
+    text = re.sub(r'_(.+?)_', r'\1', text)
+    
+    # Remove strikethrough: ~~text~~
+    text = re.sub(r'~~(.+?)~~', r'\1', text)
+    
+    # Remove headers: # text, ## text, etc
+    text = re.sub(r'^#+\s+', '', text, flags=re.MULTILINE)
+    
+    # Remove code blocks: ```code```
+    text = re.sub(r'```[\s\S]*?```', '', text)
+    
+    # Remove inline code: `code`
+    text = re.sub(r'`(.+?)`', r'\1', text)
+    
+    # Remove markdown links: [text](url)
+    text = re.sub(r'\[(.+?)\]\(.+?\)', r'\1', text)
+    
+    # Remove reference links: [text][ref]
+    text = re.sub(r'\[(.+?)\]\[.+?\]', r'\1', text)
+    
+    # Clean up extra spaces
+    text = re.sub(r'\n\s*\n', '\n\n', text)
+    
+    return text.strip()
 
 def get_llm_response(user_query: str, intent: str = "", ticket_data: Dict = None, conversation_history: List = None, language: str = "en") -> str:
     """Get intelligent response from Groq LLM using answers from domain.yml with conversation memory"""
@@ -91,16 +131,16 @@ def get_llm_response(user_query: str, intent: str = "", ticket_data: Dict = None
     # Add language instruction
     language_instruction = ""
     if language == "te":
-        language_instruction = "\n\n🌏 **LANGUAGE REQUIREMENT**: Respond ONLY in Telugu language. Translate all your responses to Telugu (తెలుగు). Use Telugu script throughout."
+        language_instruction = "\n\n🌏 LANGUAGE REQUIREMENT: Respond ONLY in Telugu language. Translate all your responses to Telugu (తెలుగు). Use Telugu script throughout."
     
     system_prompt = f"""You are the official CBIT (Chaitanya Bharathi Institute of Technology) AI assistant with complete institutional knowledge.
 {language_instruction}
 
-**Context for this query**: {context}
+CONTEXT FOR THIS QUERY: {context}
 
-**CRITICAL INSTRUCTIONS**:
+CRITICAL INSTRUCTIONS:
 
-**NEVER MENTION**:
+NEVER MENTION:
 ❌ "Check the CBIT website"
 ❌ "Visit www.cbit.ac.in"
 ❌ "Go to the student portal"
@@ -108,95 +148,99 @@ def get_llm_response(user_query: str, intent: str = "", ticket_data: Dict = None
 ❌ Any website URLs or portal links
 ❌ "I'd like to remind you that you can check..."
 
-**You KNOW this information** - State it directly as FACTS. You have complete institutional knowledge.
+You KNOW this information - State it directly as FACTS. You have complete institutional knowledge.
 
-**ALWAYS SHOW COMPLETE INFORMATION**:
+ALWAYS SHOW COMPLETE INFORMATION:
 
-1. **Be thorough and informative** - Provide complete answers with ALL relevant details from context
-2. **For tickets**: 
+1. Be thorough and informative - Provide complete answers with ALL relevant details from context
+2. For tickets: 
    - When asked "show my tickets" → Display EVERY SINGLE ticket with COMPLETE details
    - Show: Ticket ID, Title, Status, Description (full text), Created date, Assigned to
    - Use emoji 🎫 and bullet points for each ticket
    - NEVER say "You have X tickets" without listing ALL of them completely
-3. **For procedural queries** (admission, fees, documents):
+3. For procedural queries (admission, fees, documents):
    - Provide step-by-step procedures
    - Include all requirements, timings, contacts, fees
    - Don't just say "visit office" - give complete process
-4. **For information queries** (contact, exam dates, etc):
+4. For information queries (contact, exam dates, etc):
    - Provide ALL relevant information from context
    - Include phone numbers, emails, addresses, timings
-5. **For follow-ups** ("where?", "tell me more"):
+5. For follow-ups ("where?", "tell me more"):
    - Re-provide the complete information from previous context
    - Don't just reference it - show it again
 
-**CONVERSATION MEMORY**:
+CONVERSATION MEMORY:
 - Remember previous messages in this conversation
 - If user asks "tell me more", "where?", "what about that?" → Expand on the previous topic with more details
 - Reference previous context naturally
 
-**Your role**: Help students with queries about:
+YOUR ROLE: Help students with queries about:
 - Admissions, Fees, Documents, Examinations
 - Contact information, Technical issues
 - Grievances, Ticket tracking
 
-**Response Guidelines**:
-1. **Always display complete information** - Use ALL details from the context
-2. **For tickets** - Show EVERY field: ID, title, status, description, created date, assigned to
-3. **Be specific** - Include numbers, dates, URLs, contacts
-4. **Use simple formatting** - Use bullet points (•) and line breaks, NO markdown
-5. **Never use** - **bold**, *italic*, ##headers, or any markdown syntax
-6. **Never abbreviate** - Show full details, don't summarize
+RESPONSE GUIDELINES:
+1. Always display complete information - Use ALL details from the context
+2. For tickets - Show EVERY field: ID, title, status, description, created date, assigned to
+3. Be specific - Include numbers, dates, URLs, contacts
+4. Use simple formatting - Use bullet points (•) and line breaks, NO markdown
+5. Never use bold, italic, headers, or any markdown syntax
+6. Never abbreviate - Show full details, don't summarize
 
-**FORMATTING RULES**:
-- Use plain text only
-- Use bullet points (•) for lists
-- Use line breaks for structure
-- NO ** for bold
-- NO * for italic  
-- NO ## for headers
-- NO markdown syntax
+CRITICAL FORMATTING RULES - MUST FOLLOW EXACTLY:
+ABSOLUTELY NO MARKDOWN CHARACTERS:
+- NO asterisks: *, **, ***
+- NO underscores: _, __
+- NO hash symbols: #, ##, ###
+- NO backticks: `, ```
+- NO square brackets: [text]
+- NO parentheses for links: (url)
+- NO tildes: ~, ~~
+- NO equal signs for headers: ===, ---
 
-**Examples**:
+YOUR RESPONSE MUST BE 100% PLAIN TEXT WITH:
+- Plain text section headers (no special characters)
+- Bullet points using only: •
+- Numbers for lists: 1. 2. 3.
+- Emojis are OK: 🎫 📞 📧 etc
+- Line breaks for structure
+
+NEVER EVER use ANY markdown formatting. Your response must be readable as plain text with NO special formatting characters.
+
+EXAMPLE OF CORRECT FORMAT:
 
 User: "Show my tickets"
-Bot: "Here are your 3 tickets:
+Bot: Here are your 3 tickets:
 
-🎫 TICKET #1:
-• Ticket ID: #ABC12345
+TICKET 1:
+• Ticket ID: ABC12345
 • Title: ERP Login Issue
 • Status: OPEN
 • Description: Cannot login to ERP portal showing invalid credentials error
 • Created: 2026-01-10
 
-🎫 TICKET #2:
-• Ticket ID: #DEF67890
+TICKET 2:
+• Ticket ID: DEF67890
 • Title: Fee Receipt Required
 • Status: RESOLVED
 • Description: Need official fee receipt for semester 1
 • Created: 2026-01-08
 
-🎫 TICKET #3:
-• Ticket ID: #GHI24680
-• Title: Hall Ticket Download
-• Status: IN PROGRESS
-• Description: Unable to download hall ticket from website
-• Created: 2026-01-12"
-
 User: "What's the admission procedure?"
-Bot: "Here's the complete admission procedure:
+Bot: Here is the complete admission procedure:
 
 Step 1: Check Eligibility
-- 10+2 with 45% in PCM
-- Valid EAMCET/JEE score
+Requirements:
+• 10+2 with 45% in PCM
+• Valid EAMCET/JEE score
 
 Step 2: Counseling
-- Register at tseamcet.nic.in
-- Attend certificate verification
-- Select CBIT in options
+Process:
+• Register at tseamcet.nic.in
+• Attend certificate verification
+• Select CBIT in options
 
-[...all steps with complete details...]"
-
-**Response format**: Complete and detailed - always show full information from the context without abbreviation.
+RESPONSE FORMAT: Complete, detailed, 100% plain text - NO MARKDOWN.
 """
 
     try:
@@ -220,9 +264,12 @@ Step 2: Counseling
         
         llm_response = response.choices[0].message.content.strip()
         
+        # CLEAN ALL MARKDOWN FROM RESPONSE - ENSURE 100% PLAIN TEXT
+        llm_response = clean_markdown_from_response(llm_response)
+        
         # LOG FULL RESPONSE FOR DEBUGGING
         print("\n" + "="*80)
-        print("🤖 FULL LLM RESPONSE:")
+        print("🤖 CLEANED LLM RESPONSE (markdown removed):")
         print("="*80)
         print(llm_response)
         print("="*80)
@@ -235,8 +282,59 @@ Step 2: Counseling
         return f"I'm having trouble connecting right now. Please contact the college office at 8466997201 or email principal@cbit.ac.in for assistance."
 
 
+# class ActionLLMResponse(Action):
+#     """Main action for intelligent LLM responses with conversation memory"""
+    
+#     def name(self) -> Text:
+#         return "action_llm_response"
+    
+#     def run(self, dispatcher: CollectingDispatcher,
+#             tracker: Tracker,
+#             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+        
+#         user_message = tracker.latest_message.get('text', '')
+#         intent = tracker.latest_message.get('intent', {}).get('name', '')
+        
+#         # Get language from metadata
+#         metadata = tracker.latest_message.get('metadata', {})
+#         language = metadata.get('language', 'en')
+        
+#         print(f"🌏 User language preference: {language}")
+        
+#         # Get conversation history from tracker
+#         conversation_history = []
+#         events = tracker.events
+        
+#         # Extract last few user and bot messages
+#         for event in events[-40:]:  # Look at last 40 events for better context
+#             if event.get('event') == 'user':
+#                 conversation_history.append({
+#                     "role": "user",
+#                     "content": event.get('text', '')
+#                 })
+#             elif event.get('event') == 'bot' and event.get('text'):
+#                 conversation_history.append({
+#                     "role": "assistant",
+#                     "content": event.get('text', '')
+#                 })
+        
+#         # Get LLM response with conversation history and language
+#         response = get_llm_response(user_message, intent, None, conversation_history, language)
+        
+#         # LOG WHAT WE'RE SENDING TO USER
+#         print("\n" + "="*80)
+#         print("📤 DISPATCHING TO USER:")
+#         print("="*80)
+#         print(response)
+#         print("="*80)
+#         print(f"Dispatched Length: {len(response)} characters")
+#         print("="*80 + "\n")
+        
+#         dispatcher.utter_message(text=response)
+#         return []
+
 class ActionLLMResponse(Action):
-    """Main action for intelligent LLM responses with conversation memory"""
+    """Main action for intelligent LLM responses - TIER 1 Groq NLP Enhancement"""
     
     def name(self) -> Text:
         return "action_llm_response"
@@ -247,19 +345,24 @@ class ActionLLMResponse(Action):
         
         user_message = tracker.latest_message.get('text', '')
         intent = tracker.latest_message.get('intent', {}).get('name', '')
+        confidence = tracker.latest_message.get('intent', {}).get('confidence', 0)
         
         # Get language from metadata
         metadata = tracker.latest_message.get('metadata', {})
         language = metadata.get('language', 'en')
         
-        print(f"🌏 User language preference: {language}")
+        print(f"\n{'='*80}")
+        print(f"🌏 ActionLLMResponse - User language: {language}")
+        print(f"📝 Intent: {intent}, Confidence: {confidence:.2f}")
+        print(f"{'='*80}\n")
         
-        # Get conversation history from tracker
+        # ===== Extract conversation history for context =====
+        print(f"📜 Extracting conversation history for NLP context...")
         conversation_history = []
         events = tracker.events
         
-        # Extract last few user and bot messages
-        for event in events[-40:]:  # Look at last 40 events for better context
+        # Extract last 40 events (user + bot messages) for context
+        for event in events[-40:]:
             if event.get('event') == 'user':
                 conversation_history.append({
                     "role": "user",
@@ -271,22 +374,353 @@ class ActionLLMResponse(Action):
                     "content": event.get('text', '')
                 })
         
-        # Get LLM response with conversation history and language
-        response = get_llm_response(user_message, intent, None, conversation_history, language)
+        print(f"✅ Extracted {len(conversation_history)} previous messages for context")
         
-        # LOG WHAT WE'RE SENDING TO USER
-        print("\n" + "="*80)
-        print("📤 DISPATCHING TO USER:")
-        print("="*80)
-        print(response)
-        print("="*80)
-        print(f"Dispatched Length: {len(response)} characters")
-        print("="*80 + "\n")
+        # ===== TIER 1: Groq NLP Understanding + domain.yml context =====
+        if confidence >= 0.50:
+            print(f"✅ TIER 1 ACTIVATED (confidence {confidence:.2f} >= 0.50)")
+            print(f"🧠 Using Groq NLP to enhance response for intent: {intent}")
+            
+            groq_response = self.get_groq_response_for_intent(user_message, intent, language, conversation_history)
+            
+            if groq_response:
+                print(f"✅ Groq enhanced TIER 1 response")
+                dispatcher.utter_message(text=groq_response)
+                return []
+            else:
+                # Groq failed, try domain.yml fallback
+                print(f"⚠️  TIER 1 Groq failed, checking domain.yml for fallback response")
+                
+                # Try to load domain.yml response as fallback
+                try:
+                    domain_path = os.path.join(os.path.dirname(__file__), '..', 'domain.yml')
+                    with open(domain_path, 'r', encoding='utf-8') as f:
+                        domain_data = yaml.safe_load(f)
+                        responses = domain_data.get('responses', {})
+                        
+                        # Strip 'ask_' prefix from intent if present
+                        response_intent = intent.replace('ask_', '') if intent.startswith('ask_') else intent
+                        response_key = f"utter_{response_intent}"
+                        
+                        response_data = responses.get(response_key, [])
+                        fallback_answer = response_data[0].get('text', '') if response_data else ""
+                        
+                        if fallback_answer:
+                            print(f"✅ Using domain.yml fallback response")
+                            dispatcher.utter_message(text=fallback_answer)
+                            return []
+                except Exception as e:
+                    print(f"⚠️  Could not load domain.yml fallback: {e}")
+                
+                # Domain.yml fallback also empty, fall through to TIER 2
+                print(f"❌ TIER 1 completely failed (no Groq response, no domain.yml response), falling through to TIER 2")
         
-        dispatcher.utter_message(text=response)
+        # ===== TIER 2: Groq Semantic FAQ Search (Low Confidence) =====
+        print(f"⚠️  TIER 1 not activated (confidence {confidence:.2f} < 0.50)")
+        print(f"🧠 TIER 2: Using Groq for semantic FAQ matching...")
+        
+        tier2_response = self.get_groq_semantic_faq_response(user_message, language, conversation_history)
+        
+        if tier2_response:
+            print(f"✅ TIER 2: FAQ found! Returning semantic match")
+            message = f"📝 _This answer is from our FAQ database:_\n\n{tier2_response}"
+            dispatcher.utter_message(text=message)
+            return []
+        
+        # ===== TIER 3: Fallback to Ticket Creation =====
+        print(f"❌ TIER 2 FAQ search failed, no match found")
+        print(f"🎫 TIER 3: Suggesting ticket creation")
+        
+        message = """😔 I don't have a specific answer for your question right now.
+
+Let me help you create a support ticket so our admin team can assist you!
+
+**Why create a ticket?**
+✅ Personalized response from our team
+✅ Tracked until resolved
+✅ Email notifications on updates
+✅ Your question might be added to FAQ to help others!"""
+        
+        buttons = [
+            {"title": "🎫 Create Ticket", "payload": "/ask_create_ticket"},
+            {"title": "📞 Contact Info", "payload": "/ask_contact_info"},
+            {"title": "🏠 Main Menu", "payload": "/main_menu"}
+        ]
+        
+        dispatcher.utter_message(text=message, buttons=buttons)
         return []
+    
+    def get_groq_response_for_intent(self, user_message: str, intent: str, language: str = "en", conversation_history: List = None) -> str:
+        """
+        TIER 1: Use Groq to understand NLP query + generate response based on intent + domain.yml context + conversation history
+        """
+        api_key = os.getenv("GROQ_API_KEY", "")
+        if not api_key:
+            print("⚠️  TIER 1 Groq not available (no API key), returning None")
+            return None
+        
+        try:
+            groq_client = Groq(api_key=api_key)
+            print(f"🧠 TIER 1: Groq generating NLP-enhanced response for intent '{intent}'")
+            
+            # Load domain.yml response as context
+            try:
+                domain_path = os.path.join(os.path.dirname(__file__), '..', 'domain.yml')
+                with open(domain_path, 'r', encoding='utf-8') as f:
+                    domain_data = yaml.safe_load(f)
+                    responses = domain_data.get('responses', {})
+                    
+                    # Strip 'ask_' prefix from intent if present (intents are ask_transfer_certificate, but responses are utter_transfer_certificate)
+                    response_intent = intent.replace('ask_', '') if intent.startswith('ask_') else intent
+                    response_key = f"utter_{response_intent}"
+                    
+                    response_data = responses.get(response_key, [])
+                    context_answer = response_data[0].get('text', '') if response_data else ""
+                    
+                    print(f"📝 Looking for response key: {response_key}")
+            except Exception as e:
+                print(f"⚠️  Could not load domain.yml: {e}")
+                context_answer = ""
+            
+            if not context_answer:
+                print(f"⚠️  No answer found in domain.yml for '{intent}' (key: utter_{response_intent})")
+                return None
+            
+            print(f"📝 Context from domain.yml loaded ({len(context_answer)} chars)")
+            
+            # Build language instruction
+            language_instruction = ""
+            if language == "te":
+                language_instruction = "\n\n🌏 **LANGUAGE REQUIREMENT**: Respond ONLY in Telugu language. Translate to Telugu (తెలుగు)."
+            
+            # Build conversation context string
+            conversation_context = ""
+            if conversation_history:
+                print(f"📜 Using {len(conversation_history)} previous messages for conversation context")
+                conversation_context = "\n\nCONVERSATION HISTORY (for context):\n"
+                for i, msg in enumerate(conversation_history[-10:], 1):  # Last 10 messages
+                    role = "Student" if msg["role"] == "user" else "Assistant"
+                    conversation_context += f"{i}. {role}: {msg['content']}\n"
+                conversation_context += "\nUse this conversation history to provide better context-aware responses."
+            
+            # Use Groq to rephrase based on user's ACTUAL question + context
+            system_prompt = f"""You are a helpful CBIT (Chaitanya Bharathi Institute of Technology) student support assistant.
 
+Your role is to answer student questions about CBIT policies, procedures, and services in a friendly, helpful manner.
 
+CONTEXT ANSWER (from knowledge base):
+{context_answer}{conversation_context}
+
+INSTRUCTIONS:
+1. Understand what the student is REALLY asking about (use conversation history for context)
+2. Use the context answer above as your knowledge base
+3. Answer the student's SPECIFIC question (not generic)
+4. Be conversational, friendly, and helpful
+5. Reference previous conversation if relevant (e.g., "As we discussed earlier...")
+6. Keep response concise but complete
+7. Do NOT mention "context" or explain the system
+8. Use simple, clear language{language_instruction}
+
+Student Question: {user_message}
+
+Provide a helpful, personalized answer based on the context above."""
+            
+            # Build messages with ALL conversation history for better understanding
+            messages = [{"role": "system", "content": system_prompt}]
+            
+            # Add full conversation history if available
+            if conversation_history:
+                messages.extend(conversation_history[-30:])  # Last 15 exchanges
+            
+            # Add current user message
+            messages.append({"role": "user", "content": user_message})
+            
+            message = groq_client.chat.completions.create(
+                messages=messages,
+                model="llama-3.1-8b-instant",
+                temperature=0.7,
+                max_tokens=300
+            )
+            
+            groq_response = message.choices[0].message.content.strip()
+            print(f"✅ TIER 1 Groq response generated ({len(groq_response)} chars)")
+            print(f"   Preview: {groq_response[:100]}...")
+            
+            return groq_response
+            
+        except Exception as e:
+            print(f"❌ TIER 1 Groq failed: {e}")
+            import traceback
+            traceback.print_exc()
+            return None
+    
+    def get_groq_semantic_faq_response(self, user_message: str, language: str = "en", conversation_history: List = None) -> str:
+        """
+        TIER 2: Use Groq to semantically search FAQ database
+        Finds similar questions in MongoDB and returns matching FAQ answer
+        """
+        api_key = os.getenv("GROQ_API_KEY", "")
+        if not api_key:
+            print("⚠️  TIER 2 Groq not available (no API key)")
+            return None
+        
+        try:
+            groq_client = Groq(api_key=api_key)
+            print(f"🧠 TIER 2: Groq semantic FAQ search for: '{user_message}'")
+            
+            # Try to get FAQs from backend API first
+            print(f"📡 TIER 2: Connecting to FAQ database...")
+            try:
+                faq_response = requests.post(
+                    "http://localhost:8000/api/faq/search",
+                    json={"query": user_message, "limit": 10},
+                    timeout=3
+                )
+                if faq_response.status_code == 200:
+                    faqs = faq_response.json()
+                    if faqs:
+                        print(f"✅ TIER 2: Found {len(faqs)} potential matches from database")
+                    else:
+                        print(f"⚠️  TIER 2: No FAQs found in database")
+                        return None
+                else:
+                    print(f"⚠️  TIER 2: FAQ API returned status {faq_response.status_code}")
+                    return None
+            except Exception as db_error:
+                print(f"⚠️  TIER 2: Database connection failed: {db_error}")
+                return None
+            
+            if not faqs:
+                return None
+            
+            # Build FAQ list for Groq to choose from
+            faq_list = "Available FAQ answers:\n"
+            for i, faq in enumerate(faqs, 1):
+                question = faq.get('question', 'N/A')
+                answer = faq.get('answer', 'N/A')
+                faq_list += f"\nFAQ #{i}: Q: {question}\nA: {answer}\n"
+            
+            # Use Groq to semantically match
+            semantic_prompt = f"""You are a student support assistant. Given a student's question and a list of FAQ answers, find the BEST matching FAQ.
+
+Student Question: {user_message}
+
+{faq_list}
+
+TASK: Which FAQ best answers this question? Respond ONLY with the FAQ number (1, 2, 3, etc.) that best matches.
+
+If none match well, respond with: NO_MATCH
+
+IMPORTANT: Respond with ONLY the number or NO_MATCH. Nothing else."""
+            
+            print(f"🌐 TIER 2: Asking Groq to match question semantically...")
+            
+            message = groq_client.chat.completions.create(
+                messages=[
+                    {
+                        "role": "system",
+                        "content": semantic_prompt
+                    }
+                ],
+                model="llama-3.1-8b-instant",
+                temperature=0,  # Deterministic for matching
+                max_tokens=10
+            )
+            
+            groq_match = message.choices[0].message.content.strip().upper()
+            print(f"✅ TIER 2: Groq matched: '{groq_match}'")
+            
+            # Parse the match
+            if groq_match != "NO_MATCH":
+                try:
+                    faq_number = int(groq_match)
+                    if 1 <= faq_number <= len(faqs):
+                        matched_faq = faqs[faq_number - 1]
+                        faq_answer = matched_faq.get('answer', '')
+                        faq_question = matched_faq.get('question', 'N/A')
+                        
+                        print(f"✅ TIER 2: Matched FAQ: {faq_question}")
+                        print(f"📝 TIER 2: Returning answer with Groq enhancement...")
+                        
+                        # Use Groq to make the answer more conversational
+                        language_instruction = ""
+                        if language == "te":
+                            language_instruction = "\n\nRespond ONLY in Telugu (తెలుగు)."
+                        
+                        enhancement_prompt = f"""A student asked: "{user_message}"
+
+Here's the FAQ answer: "{faq_answer}"
+
+Your task: Make this answer more conversational and helpful while keeping ALL information.{language_instruction}
+- Be friendly and natural
+- Keep all important details
+- Add helpful tone
+
+Give ONLY the enhanced answer. No explanations."""
+                        
+                        enhancement_msg = groq_client.chat.completions.create(
+                            messages=[
+                                {
+                                    "role": "system",
+                                    "content": "You are a helpful student support assistant."
+                                },
+                                {
+                                    "role": "user",
+                                    "content": enhancement_prompt
+                                }
+                            ],
+                            model="llama-3.1-8b-instant",
+                            temperature=0.7,
+                            max_tokens=200
+                        )
+                        
+                        enhanced_answer = enhancement_msg.choices[0].message.content.strip()
+                        print(f"✅ TIER 2: Enhanced answer ({len(enhanced_answer)} chars)")
+                        
+                        return enhanced_answer
+                except (ValueError, IndexError) as parse_error:
+                    print(f"⚠️  TIER 2: Could not parse Groq match '{groq_match}': {parse_error}")
+                    return None
+            
+            print(f"❌ TIER 2: Groq returned NO_MATCH")
+            return None
+            
+        except Exception as e:
+            print(f"❌ TIER 2 Groq failed: {e}")
+            import traceback
+            traceback.print_exc()
+            return None
+    
+# class ActionFallback(Action):
+#     """Fallback action when intent is unclear with conversation memory"""
+    
+#     def name(self) -> Text:
+#         return "action_fallback"
+    
+#     def run(self, dispatcher: CollectingDispatcher,
+#             tracker: Tracker,
+#             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+        
+#         user_message = tracker.latest_message.get('text', '')
+        
+#         # Get language from metadata
+#         metadata = tracker.latest_message.get('metadata', {})
+#         language = metadata.get('language', 'en')
+        
+#         # Get conversation history
+#         conversation_history = []
+#         events = tracker.events
+#         for event in events[-20:]:
+#             if event.get('event') == 'user':
+#                 conversation_history.append({"role": "user", "content": event.get('text', '')})
+#             elif event.get('event') == 'bot' and event.get('text'):
+#                 conversation_history.append({"role": "assistant", "content": event.get('text', '')})
+        
+#         # Use LLM for fallback with conversation history and language
+#         response = get_llm_response(user_message, "", None, conversation_history, language)
+        
+#         dispatcher.utter_message(text=response)
+#         return []
 class ActionFallback(Action):
     """Fallback action when intent is unclear with conversation memory"""
     
@@ -298,26 +732,113 @@ class ActionFallback(Action):
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
         
         user_message = tracker.latest_message.get('text', '')
+        intent = tracker.latest_message.get('intent', {}).get('name', '')
         
-        # Get language from metadata
         metadata = tracker.latest_message.get('metadata', {})
         language = metadata.get('language', 'en')
         
-        # Get conversation history
-        conversation_history = []
-        events = tracker.events
-        for event in events[-20:]:
-            if event.get('event') == 'user':
-                conversation_history.append({"role": "user", "content": event.get('text', '')})
-            elif event.get('event') == 'bot' and event.get('text'):
-                conversation_history.append({"role": "assistant", "content": event.get('text', '')})
+        print(f"🔍 ActionFallback: Checking for: {user_message}")
         
-        # Use LLM for fallback with conversation history and language
-        response = get_llm_response(user_message, "", None, conversation_history, language)
+        # Check if it's just a casual closing response
+        casual_closers = ['okay', 'ok', 'thanks', 'thank you', 'thanks for helping', 'bye', 'goodbye', 'thanks so much', 'alright', 'cool', 'great', 'perfect', 'nice']
+        user_message_lower = user_message.lower().strip()
+        is_casual_closer = any(closer in user_message_lower for closer in casual_closers)
         
-        dispatcher.utter_message(text=response)
-        return []
+        if is_casual_closer:
+            # Just end the conversation politely
+            closing_message = "😊 You're welcome! Feel free to ask me anything anytime. Have a great day!"
+            buttons = [
+                {"title": "🏠 Main Menu", "payload": "/main_menu"},
+                {"title": "❓ Ask Another Question", "payload": "/ask_question"}
+            ]
+            dispatcher.utter_message(text=closing_message, buttons=buttons)
+            return []
+        
+        # ✅ CHECK FAQ FIRST before suggesting ticket
+        print(f"🔍 Fallback: Checking FAQ for: {user_message}")
+        
+        try:
+            faq_response = requests.post(
+                "http://localhost:8000/api/faq/search",
+                json={"query": user_message, "limit": 1},
+                timeout=3
+            )
+            if faq_response.status_code == 200:
+                faqs = faq_response.json()
+                if faqs and len(faqs) > 0:
+                    # FAQ found! Now use Groq to rephrase/enhance with NLP
+                    faq = faqs[0]
+                    faq_answer = faq.get('answer', '')
+                    faq_question = faq.get('question', 'N/A')
+                    print(f"✅ FAQ found in Fallback! Rephrasing with Groq: {faq_question}")
+                    
+                    # Use Groq to rephrase the FAQ answer in a conversational way
+                    try:
+                        groq_key = os.getenv("GROQ_API_KEY", "")
+                        if groq_key:
+                            groq_client = Groq(api_key=groq_key)
+                            
+                            rephrasing_prompt = f"""You are a helpful university student support assistant. A student asked: "{user_message}"
 
+Here's the FAQ answer from our database: "{faq_answer}"
+
+Your task: Rephrase this FAQ answer to be more conversational, friendly, and helpful while keeping the same information. 
+- Use simple language
+- Be concise (2-3 sentences max)
+- Add helpful tone and relevant emoji
+- Don't change the meaning
+- Sound natural, like talking to a friend
+
+IMPORTANT: Give ONLY the rephrased answer. No explanations, no "Here's how" prefix. Just the answer."""
+
+                            response = groq_client.chat.completions.create(
+                                messages=[
+                                    {"role": "system", "content": "You are a helpful student support assistant."},
+                                    {"role": "user", "content": rephrasing_prompt}
+                                ],
+                                model="llama-3.1-8b-instant",
+                                temperature=0.5,
+                                max_tokens=150
+                            )
+                            
+                            rephrased_answer = response.choices[0].message.content.strip()
+                            message = f"{rephrased_answer}\n\n"
+                            print(f"✅ Groq rephrased: {rephrased_answer[:80]}...")
+                        else:
+                            message = f"{faq_answer}\n\n"
+                    except Exception as e:
+                        print(f"⚠️  Groq rephrasing failed: {e}, using plain FAQ")
+                        message = f"{faq_answer}\n\n"
+                    
+                    message += "ℹ️ _This answer is from our FAQ database._\n\n"
+                    buttons = [
+                        {"title": "👎 Not Helpful", "payload": "/ask_create_ticket"},
+                    ]
+                    dispatcher.utter_message(text=message, buttons=buttons)
+                    return []
+        except Exception as e:
+            print(f"⚠️  FAQ check failed in Fallback: {e}")
+        
+        # ❌ NO FAQ FOUND: Suggest ticket instead
+        print(f"❌ No FAQ found in fallback, suggesting ticket creation")
+        message = """😔 I don't have a specific answer for your question right now.
+
+Let me help you create a support ticket so our admin team can assist you!
+
+**Why create a ticket?**
+✅ Personalized response from our team
+✅ Tracked until resolved
+✅ Email notifications on updates
+✅ Your question might be added to FAQ to help others!"""
+        
+        buttons = [
+            {"title": "🎫 Create Ticket", "payload": "/ask_create_ticket"},
+            {"title": "📞 Contact Info", "payload": "/ask_contact_info"},
+            {"title": "🏠 Main Menu", "payload": "/main_menu"}
+        ]
+        
+        dispatcher.utter_message(text=message, buttons=buttons)
+        return []
 
 class ActionCheckTickets(Action):
     """Action to fetch and display user's tickets from backend API"""
@@ -471,7 +992,7 @@ class ActionCreateTicketFallback(Action):
         # First, try to find similar FAQ
         try:
             backend_url = os.getenv("BACKEND_URL", "http://localhost:8000")
-            faq_search_url = f"{backend_url}/api/faq/search"
+            faq_search_url = f"{backend_url}/api/faqs/search"
             
             faq_payload = {
                 "query": user_message,
@@ -496,7 +1017,7 @@ class ActionCreateTicketFallback(Action):
                     # Update FAQ usage count
                     faq_id = top_faq.get('_id')
                     if faq_id:
-                        db_url = f"{backend_url}/api/faq/{faq_id}/increment-usage"
+                        db_url = f"{backend_url}/api/faqs/{faq_id}/increment-usage"
                         try:
                             requests.post(db_url, timeout=2)
                         except:
@@ -518,16 +1039,17 @@ Please rephrase this answer in a friendly, conversational way as if you're a hel
                     
                     # Format FAQ response with conversational answer
                     confidence_text = f" (Match: {int(similarity * 100)}%)" if similarity > 0.7 else ""
-                    faq_response = f"""Here is an answer to your question from faq!{confidence_text}
+                    faq_response = f"""✅ I found an answer to your question!{confidence_text}
 
 {conversational_answer}
 
 💡 This answer comes from our knowledge base
 
-Wasn't this helpful?"""
+Was this helpful?"""
                     
                     # Show buttons
                     buttons = [
+                        {"title": "👍 Yes, Helpful", "payload": f"/faq_helpful/{faq_id}"},
                         {"title": "👎 Not Helpful - Create Ticket", "payload": "/ask_create_ticket"},
                         {"title": "🏠 Main Menu", "payload": "/back_to_menu"},
                     ]
@@ -665,7 +1187,7 @@ class ActionFAQHelpful(Action):
         if faq_id:
             try:
                 backend_url = "http://localhost:8000"
-                requests.post(f"{backend_url}/api/faq/{faq_id}/helpful", timeout=2)
+                requests.post(f"{backend_url}/api/faqs/{faq_id}/helpful", timeout=2)
             except:
                 pass  # Don't fail if tracking fails
         

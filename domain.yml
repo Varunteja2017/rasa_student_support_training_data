@@ -5,9 +5,29 @@ intents:
   - goodbye
   - affirm
   - deny
-  - menu_selection
   - back_to_menu
+  - return_to_menu
+  - menu_selection
   - ask_custom_question
+  - ask_other
+  - select_admissions
+  - select_fees
+  - select_documents
+  - select_exams
+  - select_technical
+  - select_contact
+  - select_tickets
+  - select_grievances
+  - choose_menu_root
+  - choose_admissions
+  - choose_fees
+  - choose_exams
+  - choose_memos
+  - choose_services
+  - choose_counters
+  - choose_placements
+  - choose_tickets
+  - choose_campus_info
   - ask_admission_procedure
   - ask_admission_eligibility
   - ask_admission_dates
@@ -15,19 +35,15 @@ intents:
   - ask_fee_structure
   - ask_fee_payment
   - ask_fee_payment_method
+  - ask_fee_payment_deadline
   - ask_fee_receipt
-  - ask_fee_refund
-  - ask_installment_payment
-  - ask_scholarship_fee
-  - ask_fee_paid_not_updated
-  - ask_payment_failed_money_deducted
-  - fee_payment_failure
   - ask_bonafide_certificate
   - ask_transfer_certificate
   - ask_marks_memo
   - ask_provisional_certificate
   - ask_exam_schedule
   - ask_hall_ticket
+  - ask_hall_ticket_not_generated
   - ask_results
   - ask_revaluation
   - ask_supplementary_exam
@@ -36,26 +52,30 @@ intents:
   - technical_issue_erp
   - technical_issue_email
   - technical_issue_lms
-  - ask_anti_ragging
-  - out_of_scope
   - ask_my_tickets
   - ask_ticket_status
-  - ask_create_ticket
-  - ask_ticket_history
-  - exam_registration
-  - ask_college_info
-  - select_tickets
   - ask_ticket_by_id
+  - ask_ticket_history
+  - ask_create_ticket
   - ask_search_ticket
-  - return_to_menu
   - hostel_fee
   - hostel_admission
   - hostel_rules
   - hostel_room_allotment
   - hostel_mess
   - hostel_complaint
+  - file_grievance
+  - fee_receipt_issue
   - faq_helpful
   - faq_not_helpful
+  - ask_exam_attendance
+  - exam_registration
+  - ask_anti_ragging
+  - ask_college_info
+  - ask_principal_contact
+  - thank_you
+  - fallback
+  - out_of_scope
   - academic_calendar
   - admission_branch_change
   - admission_cancellation
@@ -66,66 +86,84 @@ intents:
   - admission_management_quota
   - admission_spot
   - ask_character_certificate
+  - ask_duplicate_documents
+  - ask_document_verification
+  - ask_migration_certificate
   - ask_college_address
   - ask_contact_details
+  - ask_department_contact
+  - ask_office_timings
+  - faculty_contact
+  - ask_fee_refund
+  - ask_installment_payment
+  - ask_scholarship_fee
+  - ask_fee_paid_not_updated
+  - ask_payment_failed_money_deducted
+  - fee_payment_failure
+  - fee_payment_deadline
   - ask_course_completion_certificate
   - ask_courses_offered
   - ask_cutoff_ranks
-  - ask_department_contact
-  - ask_document_verification
-  - ask_duplicate_documents
   - ask_eligibility_criteria
-  - ask_email_access
-  - ask_erp_login
-  - ask_exam_attendance
   - ask_exam_results
   - ask_exam_rules
-  - ask_id_card
-  - ask_late_fee_fine
-  - ask_lms_access
-  - ask_migration_certificate
-  - ask_office_timings
-  - ask_password_reset
-  - ask_principal_contact
-  - ask_seat_availability
-  - ask_student_grievance
-  - ask_website
-  - attendance_not_updated
-  - attendance_requirement
-  - companies_visiting
   - credits_system
   - electives_info
-  - exam_absence
   - external_marks
-  - faculty_contact
-  - fallback
-  - fee_payment_deadline
   - internal_marks
-  - internship_opportunities
   - lab_schedule
-  - lms_login_issue
   - malpractice_rules
   - marks_not_visible
-  - merit_scholarship
-  - minority_scholarship
+  - syllabus_query
+  - ask_email_access
+  - ask_erp_login
+  - ask_id_card
+  - ask_lms_access
+  - ask_password_reset
+  - lms_login_issue
   - placement_cell_contact
   - placement_eligibility
   - placement_statistics
   - placement_training
-  - profile_update_issue
-  - results_delay
+  - companies_visiting
+  - internship_opportunities
+  - ask_late_fee_fine
+  - merit_scholarship
+  - minority_scholarship
   - scholarship_application
   - scholarship_documents
   - scholarship_eligibility
   - scholarship_renewal
   - scholarship_status
-  - select_grievances
-  - syllabus_query
-  - thank_you
+  - attendance_not_updated
+  - attendance_requirement
+  - exam_absence
+  - results_delay
+  - ask_seat_availability
+  - ask_student_grievance
+  - ask_website
+  - profile_update_issue
   - tuition_fee
 
 entities:
   - menu
+
+slots:
+  ticket_creation_step:
+    type: text
+    mappings: []
+  ticket_issue:
+    type: text
+    mappings: []
+  ticket_category:
+    type: text
+    mappings: []
+  ticket_title:
+    type: text
+    mappings: []
+  description_method:
+    type: text
+    mappings: []
 
 actions:
   - action_llm_response
@@ -142,6 +180,7 @@ actions:
   - action_smart_query_handler
   - action_ask_custom_question
   - action_create_ticket_fallback
+  - action_interactive_ticket_creation
   - action_search_ticket_by_id
   - action_search_ticket
   - action_faq_helpful
@@ -184,7 +223,16 @@ responses:
       - title: "❓ Ask another question"
         payload: "/ask_custom_question"
   utter_eligibility_criteria:
-  - text: "Eligibility Criteria:\n\nB.Tech: 45% in 10+2 with PCM (40% for SC/ST/BC). Qualified in TS EAMCET/JEE Mains.\n\nM.Tech: B.Tech degree with valid GATE/TGPGCET score.\n\nMBA: Bachelor's degree with valid TGICET score.\n\nManagement Quota B.Tech: Min 45% in Intermediate (PCM), qualified in EAMCET/JEE."
+  - text: "Eligibility Criteria:\n\nB.Tech: 45% in 10+2 (40% for SC/ST/BC). Qualified in TS EAMCET/JEE Mains.\n\nM.Tech: B.Tech degree with valid GATE/TGPGCET score.\n\nMBA: Bachelor's degree with valid TGICET score.\n\nManagement Quota B.Tech: Min 45% in Intermediate (PCM), qualified in EAMCET/JEE."
+  
+    buttons:
+      - title: "🏠 Back to main menu"
+        payload: "/select_menu_root"
+      - title: "❓ Ask another question"
+        payload: "/ask_custom_question"
+
+  utter_admission_eligibility:
+  - text: "Eligibility Criteria:\n\nB.Tech: 45% in 10+2 (40% for SC/ST/BC). Qualified in TS EAMCET/JEE Mains.\n\nM.Tech: B.Tech degree with valid GATE/TGPGCET score.\n\nMBA: Bachelor's degree with valid TGICET score.\n\nManagement Quota B.Tech: Min 45% in Intermediate (PCM), qualified in EAMCET/JEE."
   
     buttons:
       - title: "🏠 Back to main menu"
@@ -272,6 +320,97 @@ responses:
         payload: "/select_menu_root"
       - title: "❓ Ask another question"
         payload: "/ask_custom_question"
+
+  utter_fee_payment_ways:
+  - text: "Fee payment methods: 1) Online via ERP (most common), 2) Offline at Accounts Counter with challan, 3) Bank transfer. Online payment is instant and you get receipt immediately."
+  
+    buttons:
+      - title: "🏠 Back to main menu"
+        payload: "/select_menu_root"
+      - title: "❓ Ask another question"
+        payload: "/ask_custom_question"
+
+  utter_epas_payment_steps:
+  - text: "EPAS payment steps: 1) Login with your ID, 2) Go to Fees section, 3) Select semester to pay, 4) Choose payment method (online/offline), 5) Enter amount and proceed. Online payment processes instantly."
+  
+    buttons:
+      - title: "🏠 Back to main menu"
+        payload: "/select_menu_root"
+      - title: "❓ Ask another question"
+        payload: "/ask_custom_question"
+
+  utter_fee_payment_confirmation:
+  - text: "Fee payment confirmation: After online payment, check your email for receipt. Log into ERP/EPAS and verify under 'Payment History'. If not updated within 1 hour, contact Accounts office."
+  
+    buttons:
+      - title: "🏠 Back to main menu"
+        payload: "/select_menu_root"
+      - title: "❓ Ask another question"
+        payload: "/ask_custom_question"
+
+  utter_late_fee_penalty:
+  - text: "Late fee penalty: ₹500 per day after due date. Semester exams will be blocked if fees are not paid. Pay immediately to avoid penalties. Check your fee portal for exact due date."
+  
+    buttons:
+      - title: "🏠 Back to main menu"
+        payload: "/select_menu_root"
+      - title: "❓ Ask another question"
+        payload: "/ask_custom_question"
+
+  utter_fee_paid_not_updated:
+  - text: "If fee paid but not shown in ERP: 1) Wait 24 hours (payment may be processing), 2) Check your bank to confirm debit, 3) Look for payment receipt email, 4) Visit Accounts Counter with proof of payment, 5) They'll update manually if needed."
+  
+    buttons:
+      - title: "🏠 Back to main menu"
+        payload: "/select_menu_root"
+      - title: "❓ Ask another question"
+        payload: "/ask_custom_question"
+
+  utter_epas_login_issue:
+  - text: "EPAS login issues: 1) Use your student ID (not email), 2) Password is your DOB in DDMMYYYY format (default), 3) Clear browser cache and try again, 4) Use Chrome/Firefox browsers, 5) Contact IT help desk if still not working."
+  
+    buttons:
+      - title: "🏠 Back to main menu"
+        payload: "/select_menu_root"
+      - title: "❓ Ask another question"
+        payload: "/ask_custom_question"
+
+  utter_erp_login:
+  - text: "ERP login issues: 1) Use your student ID (not name) as username, 2) Default password is your DOB in DDMMYYYY format, 3) Clear browser cookies and cache, 4) Try incognito/private mode, 5) Use Chrome or Firefox browsers, 6) Contact IT support (ext: 2345) if problem persists."
+  
+    buttons:
+      - title: "🏠 Back to main menu"
+        payload: "/select_menu_root"
+      - title: "❓ Ask another question"
+        payload: "/ask_custom_question"
+
+  utter_download_fee_receipt:
+  - text: "Download fee receipt: 1) Login to ERP with student ID, 2) Go to 'Payments' section, 3) Find your payment transaction, 4) Click 'Download Receipt' button. Receipt is in PDF format. Print or email for records."
+  
+    buttons:
+      - title: "🏠 Back to main menu"
+        payload: "/select_menu_root"
+      - title: "❓ Ask another question"
+        payload: "/ask_custom_question"
+
+  utter_lost_receipt_recovery:
+  - text: "Lost fee receipt? 1) Try downloading from ERP (available for 5 years), 2) Visit Accounts Counter with student ID and fee details, 3) Request duplicate/reprint receipt, 4) Processing time: same day. Small charges may apply (usually free)."
+  
+    buttons:
+      - title: "🏠 Back to main menu"
+        payload: "/select_menu_root"
+      - title: "❓ Ask another question"
+        payload: "/ask_custom_question"
+
+  utter_scholarship_fee_adjustment:
+  - text: "Scholarship adjustment: SC/ST and EBC scholarships are auto-deducted from your fee. You'll see scholarship credit in fee structure. If not showing, contact Accounts office within 7 days of fee due date with scholarship approval letter."
+  
+    buttons:
+      - title: "🏠 Back to main menu"
+        payload: "/select_menu_root"
+      - title: "❓ Ask another question"
+        payload: "/ask_custom_question"
+
   # DOCUMENT ANSWERS
   utter_bonafide_certificate:
   - text: "Apply at Counter Section. Required: ID card, 50 ruppees.Once payment is done, you'll have to submit the form to respective counter (Counter 1 for 1st and 2nd year students and Counter 2 for 3rd and 4th year students). Processing time: 1-2 working days. Collect during office hours (10 AM - 5 PM)."
@@ -315,6 +454,15 @@ responses:
       - title: "❓ Ask another question"
         payload: "/ask_custom_question"
   utter_exam_results:
+  - text: "📊 Results:\n\nInternal marks: Published within 2 months of semester exams in student portal\nPass Criteria: 40/100 overall (min 28/70 external)\n\nLogin to erp portal → Overall Marks Result → Results."
+  
+    buttons:
+      - title: "🏠 Back to main menu"
+        payload: "/select_menu_root"
+      - title: "❓ Ask another question"
+        payload: "/ask_custom_question"
+
+  utter_results:
   - text: "📊 Results:\n\nInternal marks: Published within 2 months of semester exams in student portal\nPass Criteria: 40/100 overall (min 28/70 external)\n\nLogin to erp portal → Overall Marks Result → Results."
   
     buttons:
@@ -388,6 +536,7 @@ responses:
         payload: "/select_menu_root"
       - title: "❓ Ask another question"
         payload: "/ask_custom_question"
+
   utter_anti_ragging:
   - text: "CBIT is strict anti-ragging campus. Report incidents immediately to: Anti-Ragging Cell , Principal, or Dean Student Affairs. Anonymous complaints accepted. 24/7 helpline available."
    
@@ -767,112 +916,6 @@ responses:
       - title: "❓ Ask another question"
         payload: "/ask_custom_question"
   # MENU RESPONSES (for navigation payloads)
-  utter_menu_root:
-  - text: "👋 Welcome to CBIT Student Support!\n\nWhat can I help you with today? Select a category or type your own question:"
-    buttons:
-      - title: "📚 Admissions & Enrollment"
-        payload: "/select_admissions"
-      - title: "💰 Fee Payment"
-        payload: "/select_fees"
-      - title: "📄 Certificates & Documents"
-        payload: "/select_documents"
-      - title: "📝 Examinations"
-        payload: "/select_exams"
-      - title: "💻 Technical Issues"
-        payload: "/select_technical"
-      - title: "🎫 Support Tickets"
-        payload: "/select_tickets"
-      - title: " Contact Information"
-        payload: "/select_contact"
-      - title: "✍️ Type Your Own Question"
-        payload: "/ask_custom_question"
-
-  utter_select_admissions:
-  - text: "🎓 Admissions Menu\n\nSelect a topic:"
-    buttons:
-      - title: "Admission Procedure"
-        payload: "/ask_admission_procedure"
-      - title: "Eligibility Criteria"
-        payload: "/ask_admission_eligibility"
-      - title: "Entrance Exams"
-        payload: "/ask_entrance_exam"
-      - title: "Admission Dates"
-        payload: "/ask_admission_dates"
-      - title: "Back to main menu"
-        payload: "/select_menu_root"
-
-  utter_select_fees:
-  - text: "💰 Fees Menu\n\nSelect a topic:"
-    buttons:
-      - title: "Fee Structure"
-        payload: "/ask_fee_structure"
-      - title: "Fee Payment Method"
-        payload: "/ask_fee_payment_method"
-      - title: "Payment Deadline"
-        payload: "/ask_fee_payment_deadline"
-      - title: "Fee Receipt"
-        payload: "/ask_fee_receipt"
-      - title: "Back to main menu"
-        payload: "/select_menu_root"
-
-  utter_select_exams:
-  - text: "📝 Exams Menu\n\nSelect a topic:"
-    buttons:
-      - title: "Exam Schedule"
-        payload: "/ask_exam_schedule"
-      - title: "Hall Ticket"
-        payload: "/ask_hall_ticket"
-      - title: "Results"
-        payload: "/ask_results"
-      - title: "Revaluation"
-        payload: "/ask_revaluation"
-      - title: "Back to main menu"
-        payload: "/select_menu_root"
-
-  utter_select_documents:
-  - text: "📄 Documents Menu\n\nSelect a topic:"
-    buttons:
-      - title: "Bonafide Certificate"
-        payload: "/ask_bonafide_certificate"
-      - title: "Transfer Certificate"
-        payload: "/ask_transfer_certificate"
-      - title: "Marks Memo"
-        payload: "/ask_marks_memo"
-      - title: "Provisional Certificate"
-        payload: "/ask_provisional_certificate"
-      - title: "Back to main menu"
-        payload: "/select_menu_root"
-
-  utter_select_technical:
-  - text: "💻 Technical Issues Menu\n\nSelect a topic:"
-    buttons:
-      - title: "ERP Issues"
-        payload: "/technical_issue_erp"
-      - title: "Email Issues"
-        payload: "/technical_issue_email"
-      - title: "Back to main menu"
-        payload: "/select_menu_root"
-
-  utter_select_contact:
-  - text: "📞 Contact Information:"
-    buttons:
-      - title: "Contact Info"
-        payload: "/ask_contact_info"
-      - title: "Office Hours"
-        payload: "/ask_office_hours"
-      - title: "Back to main menu"
-        payload: "/select_menu_root"
-
-  utter_select_tickets:
-  - text: "🎫 Support Tickets\n\nTo raise a new ticket, please open the Tickets section in the app. You can create detailed tickets there and track their status."
-    buttons:
-      - title: "Open Tickets"
-        payload: "/open_tickets_ui"
-      - title: "Track Ticket Status"
-        payload: "/track_ticket_status"
-      - title: "Back to main menu"
-        payload: "/select_menu_root"
-
   utter_when_memo_released:
   - text: "Semester memos (mark sheets) are issued after CBIT declares results and processes the data. Memos are typically available 2-3 months after semester exams. You will receive a notification when memos are ready for collection at the Administrative Counter."
 
